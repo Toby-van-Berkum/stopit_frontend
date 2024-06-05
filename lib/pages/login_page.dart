@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'globals.dart';
 
 class LoginPage extends StatefulWidget {
@@ -42,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Email',
+                  filled: true,
+                  fillColor: AppColors.accentColor
                 ),
               ),
               const SizedBox(height: 16),
@@ -60,6 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Password',
+                  filled: true,
+                  fillColor: AppColors.accentColor
                 ),
               ),
               const SizedBox(height: 24),
@@ -69,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   // backgroundColor: Colors.orange[200], // Background color
-                  backgroundColor: AppColors.accentColor,
+                  backgroundColor: AppColors.primaryColor,
                   minimumSize: const Size(400, 50), // Width and height
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
