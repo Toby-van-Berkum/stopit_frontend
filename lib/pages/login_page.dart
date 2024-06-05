@@ -15,7 +15,12 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+      title: Text(
+        widget.title,
+        style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        ),
+      ),
       ),
       body: Center(
         child: Padding(
@@ -27,12 +32,12 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 "Email",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 20 // Bold text
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
               ),
               const SizedBox(height: 8),
               TextField(
-                // controller: _emailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Email',
@@ -42,12 +47,12 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 "Password",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 20// Bold text
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
               ),
               const SizedBox(height: 8),
               TextField(
-                // controller: _passwordController,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -62,10 +67,10 @@ class _LoginPageState extends State<LoginPage> {
                   // Add your onPressed logic here
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange[200], // Background color
-                  minimumSize: const Size(400, 50), // Width and height
+                  backgroundColor: Colors.orange[200],
+                  minimumSize: const Size(400, 50),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), // Rectangular shape
+                    borderRadius: BorderRadius.circular(5),
                   ),
                 ),
                 child: const Align(
@@ -74,7 +79,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20 // Bold text
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                   ),
@@ -87,4 +93,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
