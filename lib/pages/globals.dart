@@ -1,5 +1,6 @@
 // lib/colors.dart
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFFFFB580);
@@ -12,4 +13,8 @@ class AppColors {
   static const Color black = Color(0xFF000000);
 
 // Add more colors as needed
+}
+
+class AppFonts {
+  static final TextTheme poppins = GoogleFonts.poppinsTextTheme();
 }
