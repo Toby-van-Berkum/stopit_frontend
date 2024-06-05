@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'globals.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -67,8 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                   // Add your onPressed logic here
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange[200],
-                  minimumSize: const Size(400, 50),
+                  // backgroundColor: Colors.orange[200], // Background color
+                  backgroundColor: AppColors.accentColor,
+                  minimumSize: const Size(400, 50), // Width and height
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
