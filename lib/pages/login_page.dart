@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/register_page.dart';
 import 'globals.dart';
 
 class LoginPage extends StatefulWidget {
@@ -97,7 +98,11 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 children: [
                   Text("Don't have an account yet?"),
-                  TextButton(onPressed: null, child: Text('Register', style: TextStyle(color: AppColors.primaryColor),))
+                  TextButton(
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: 'Register',)));
+                  } ,
+                      child: Text('Register', style: TextStyle(color: AppColors.primaryColor),))
                 ],
               )
             ],
