@@ -38,8 +38,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              TextField(
-                decoration: const InputDecoration(
+              const TextField(
+                controller: null,
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Email',
                   filled: true,
@@ -55,13 +56,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              TextField(
+              const TextField(
+                controller: null,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Password',
+                    hintText: 'Password',
                   filled: true,
                   fillColor: AppColors.accentColor
                 ),
@@ -92,6 +94,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              Row(
+                children: [
+                  Text("Don't have an account yet?"),
+                  TextButton(onPressed: null, child: Text('Register', style: TextStyle(color: AppColors.primaryColor),))
+                ],
+              )
             ],
           ),
         ),
