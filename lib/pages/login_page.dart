@@ -31,6 +31,8 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const Text("Login", style: TextStyle(fontSize: 45),),
+              const SizedBox(height: 50,),
               const Text(
                 "Email",
                 style: TextStyle(
@@ -97,14 +99,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Row(
                 children: [
-                  Text("Don't have an account yet?"),
+                  const Text("Don't have an account yet?"),
                   TextButton(
                       onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: 'Register',)));
                   } ,
-                      child: Text('Register', style: TextStyle(color: AppColors.primaryColor),))
+                      child: const Text('Stop It', style: TextStyle(color: AppColors.primaryColor),))
                 ],
-              )
+              ),
+              const SizedBox(height: 50,)
             ],
           ),
         ),
