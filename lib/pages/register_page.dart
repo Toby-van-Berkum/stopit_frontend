@@ -25,6 +25,36 @@ class _RegisterPageState extends State<RegisterPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const Text(
+                "First Name",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 20 // Bold text
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                // controller: _emailController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'First Name',
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                "Last Name",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 20 // Bold text
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                // controller: _emailController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Last Name',
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
                 "Email",
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 20 // Bold text

@@ -19,6 +19,10 @@ class AppFonts {
   static final TextTheme poppins = GoogleFonts.poppinsTextTheme();
 }
 
+class AppTitle {
+  static const String title = "Stop It";
+}
+
 class SingleCard extends StatelessWidget{
   final String headText;
   final String statsText;

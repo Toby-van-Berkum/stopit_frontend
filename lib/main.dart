@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         useMaterial3: true,
       ),
-      home: const LoginPage(title: 'Stop It'),
+      home: const LoginPage(title: AppTitle.title),
     );
   }
 }
