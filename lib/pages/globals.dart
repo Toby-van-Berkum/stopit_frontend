@@ -41,4 +41,34 @@ class AppStyles {
   }
 
 
+class SingleCard extends StatelessWidget{
+  final String headText;
+  final String statsText;
+  final double widthCard;
+  final Color colorCard;
+
+  const SingleCard(
+      {super.key, required this.headText, required this.statsText,
+        required this.widthCard, required this.colorCard});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: widthCard,
+      // height: 40,
+      color: colorCard,
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(headText, textAlign: TextAlign.end),
+          ),
+          Container(
+            alignment: Alignment.centerRight,
+            child: Text(statsText, textAlign: TextAlign.start),
+          )
+        ],
+      ),
+    );
+  }
 }
