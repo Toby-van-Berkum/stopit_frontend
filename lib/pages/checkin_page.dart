@@ -30,6 +30,10 @@ class _CheckInPageState extends State<CheckInPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Text("Daily Check Up"),
+              //TODO: Add has Smoked (yes/no) buttons
+              //TODO: Add a comment field
+              //TODO: Add difficulty scale (VERY_HARD,HARD,MEDIUM,EASY,VERY_EASY)
               ElevatedButton(onPressed: null, child: Text("ur mum"))
             ],
           ),

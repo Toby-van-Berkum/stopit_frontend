@@ -9,11 +9,15 @@ class LoginPage extends StatefulWidget {
 
   final String title;
 
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,48 +39,32 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               const Text("Login", style: TextStyle(fontSize: 45),),
               const SizedBox(height: 50,),
-              const Text(
+              Text(
                 "Email",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                style: AppStyles.labelStyle()
               ),
               const SizedBox(height: 8),
-              const TextField(
-                controller: null,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Email',
-                  filled: true,
-                  fillColor: AppColors.accentColor
-                ),
+              TextField(
+                controller: _emailController,
+                decoration: AppStyles.inputStyle("Email")
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Password",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                style: AppStyles.labelStyle()
               ),
               const SizedBox(height: 8),
-              const TextField(
-                controller: null,
+              TextField(
+                controller: _passwordController,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                    hintText: 'Password',
-                  filled: true,
-                  fillColor: AppColors.accentColor
-                ),
+                decoration: AppStyles.inputStyle("Password")
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
@@ -105,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: AppTitle.title,)));
                   } ,
-                      child: const Text('Stop It', style: TextStyle(color: AppColors.primaryColor),))
+                      child: const Text('Register', style: TextStyle(color: AppColors.primaryColor),))
                 ],
               ),
             ],

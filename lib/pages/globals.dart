@@ -22,3 +22,23 @@ class AppFonts {
 class AppTitle {
   static const String title = "Stop It";
 }
+
+class AppStyles {
+  static InputDecoration inputStyle(String hintText) {
+    return InputDecoration(
+      border: const OutlineInputBorder(),
+      hintText: hintText,
+      filled: true,
+      fillColor: AppColors.accentColor
+    );
+  }
+
+  static TextStyle labelStyle() {
+    return const TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 20,
+    );
+  }
+
+
+}

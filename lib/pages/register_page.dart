@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/globals.dart';
+import 'package:stopit_frontend/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.title});
@@ -24,56 +26,39 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
+              Text(
                 "First Name",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 20 // Bold text
-                ),
+                style: AppStyles.labelStyle()
               ),
               const SizedBox(height: 8),
               TextField(
                 // controller: _emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'First Name',
-                ),
+                decoration: AppStyles.inputStyle("First Name")
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Last Name",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 20 // Bold text
-                ),
+                style: AppStyles.labelStyle()
               ),
               const SizedBox(height: 8),
               TextField(
                 // controller: _emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Last Name',
-                ),
+                decoration: AppStyles.inputStyle("Last Name")
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Email",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 20 // Bold text
-                ),
+                style: AppStyles.labelStyle()
               ),
               const SizedBox(height: 8),
               TextField(
                 // controller: _emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Email',
-                ),
+                decoration: AppStyles.inputStyle("Email")
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Password",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 20// Bold text
-                ),
+                style: AppStyles.labelStyle()
               ),
               const SizedBox(height: 8),
               TextField(
@@ -81,18 +66,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
-                ),
+                decoration: AppStyles.inputStyle("Password")
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  // Add your onPressed logic here
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,)));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange[200], // Background color
+                  backgroundColor: AppColors.primaryColor, // Background color
                   minimumSize: const Size(400, 50), // Width and height
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5), // Rectangular shape
@@ -102,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 16.0),
                     child: Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20 // Bold text
                       ),
