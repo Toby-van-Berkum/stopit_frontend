@@ -74,14 +74,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,)));
                 },
                 style: AppStyles.largeButton(context),
-                child: const Align(
+                child: Align(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       'Register',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20 // Bold text
-                      ),
+                      style: AppStyles.labelStyle()
                     ),
                   ),
                 ),

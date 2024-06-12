@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'globals.dart';
 
 class CheckInPage extends StatefulWidget {
@@ -10,12 +11,21 @@ class CheckInPage extends StatefulWidget {
   State<CheckInPage> createState() => _CheckInPageState();
 }
 
-enum HasSmoked { yes, no }
-enum Difficulty {VERY_HARD,HARD,MEDIUM,EASY,VERY_EASY}
-
+const List<Widget> hasSmoked = <Widget>[
+  Text("Yes"),
+  Text("No")
+];
+const List<Widget> difficulty = <Widget>[
+  Text("Very Hard"),
+  Text("Hard"),
+  Text("Medium"),
+  Text("Easy"),
+  Text("Very Easy")
+];
 class _CheckInPageState extends State<CheckInPage> {
-  HasSmoked? _answer = HasSmoked.yes;
-
+  final List<bool> _hasSmoked = <bool>[true, false];
+  final List<bool> _difficulty = <bool>[false, false, true, false, false];
+  bool vertical = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,29 +47,24 @@ class _CheckInPageState extends State<CheckInPage> {
             children: <Widget>[
               Text("Daily Check Up", style: AppStyles.headerStyle(),),
               Text("Did you smoke today?", style: AppStyles.labelStyle(),),
-              ListTile(
-                title: const Text('Yes'),
-                leading: Radio<HasSmoked>(
-                  value: HasSmoked.yes,
-                  groupValue: _answer,
-                  onChanged: (HasSmoked? value) {
-                    setState(() {
-                      _answer = value;
-                    });
-                  },
+              ToggleButtons(
+                direction: vertical ? Axis.vertical : Axis.horizontal,
+                onPressed: (int index){
+                  setState(() {
+                    for(int i = 0; i < _hasSmoked.length; i++) {
+                      _hasSmoked[i] = i == index;
+                    }
+                  });
+                },
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                selectedBorderColor: AppColors.primaryColor,
+                fillColor: AppColors.primaryColor,
+                constraints: const BoxConstraints(
+                  minHeight: 40.0,
+                  minWidth: 80.0
                 ),
-              ),
-              ListTile(
-                title: const Text('No'),
-                leading: Radio<HasSmoked>(
-                  value: HasSmoked.no,
-                  groupValue: _answer,
-                  onChanged: (HasSmoked? value) {
-                    setState(() {
-                      _answer = value;
-                    });
-                  },
-                ),
+                isSelected: _hasSmoked,
+                children: hasSmoked,
               ),
               Text("How did your day go?", style: AppStyles.labelStyle(),),
               TextField(
@@ -70,20 +75,40 @@ class _CheckInPageState extends State<CheckInPage> {
                 decoration: AppStyles.inputStyle("Comment"),
               ),
               Text("How difficult was today?", style: AppStyles.labelStyle(),),
-              OverflowBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  TextButton( child: const Text('1'), onPressed: () {}),
-                  TextButton( child: const Text('2'), onPressed: () {}),
-                  TextButton( child: const Text('3'), onPressed: () {}),
-                  TextButton( child: const Text('4'), onPressed: () {}),
-                  TextButton( child: const Text('5'), onPressed: () {})
-                ],
+              ToggleButtons(
+                direction: vertical ? Axis.vertical : Axis.horizontal,
+                onPressed: (int index){
+                  setState(() {
+                    for(int i = 0; i < _difficulty.length; i++) {
+                      _difficulty[i] = i == index;
+                    }
+                  });
+                },
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                selectedBorderColor: AppColors.primaryColor,
+                fillColor: AppColors.primaryColor,
+                constraints: const BoxConstraints(
+                    minHeight: 40.0,
+                    minWidth: 73.0
+                ),
+                isSelected: _difficulty,
+                children: difficulty,
               ),
-              //TODO: Add "has Smoked" (yes/no) buttons
-              //TODO: Add a comment field
-              //TODO: Add difficulty scale (VERY_HARD,HARD,MEDIUM,EASY,VERY_EASY)
-              ElevatedButton(onPressed: null, child: Text("Submit"))
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
+                },
+                style: AppStyles.largeButton(context),
+                child: Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Text(
+                      'Submit',
+                      style: AppStyles.labelStyle()
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
