@@ -11,6 +11,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final double customPadding = 16.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,8 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
       ),
-      body: Center(
+      body: Container(
+        margin: EdgeInsets.all(customPadding),
         child: Column(
           children: <Widget>[
             Text('Hello user'),
@@ -51,14 +54,25 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             Text('“When you quit smoking, you not only add years to your life '
                 'but also life to your years”'),
-            SingleCard(headText: 'No cigarettes',
-                statsText: '2 months, 4 days', widthCard: (MediaQuery.of(context).size.width), colorCard: AppColors.yellow),
+            SingleCard(
+                headText: 'No cigarettes',
+                statsText: '2 months, 4 days',
+                widthCard: (ScreenSizes.width(context)),
+                colorCard: AppColors.yellow),
             Row(
               children: [
-                SingleCard(headText: 'You saved', statsText: '€30',
-                    widthCard: (MediaQuery.of(context).size.width / 2), colorCard: AppColors.blue),
-                SingleCard(headText: 'Your health', statsText: 'insert text',
-                    widthCard: (MediaQuery.of(context).size.width / 2), colorCard: AppColors.green),
+                SingleCard(
+                    headText: 'You saved',
+                    statsText: '€30',
+                    widthCard:
+                        ((ScreenSizes.width(context) / 2) - customPadding),
+                    colorCard: AppColors.blue),
+                SingleCard(
+                    headText: 'Your health',
+                    statsText: 'insert text',
+                    widthCard:
+                        ((ScreenSizes.width(context) / 2) - customPadding),
+                    colorCard: AppColors.green),
               ],
             )
           ],
