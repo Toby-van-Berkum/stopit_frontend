@@ -46,7 +46,9 @@ class _CheckInPageState extends State<CheckInPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text("Daily Check Up", style: AppStyles.headerStyle(),),
+              const SizedBox(height: 40),
               Text("Did you smoke today?", style: AppStyles.labelStyle(),),
+              const SizedBox(height: 8),
               ToggleButtons(
                 direction: vertical ? Axis.vertical : Axis.horizontal,
                 onPressed: (int index){
@@ -66,7 +68,9 @@ class _CheckInPageState extends State<CheckInPage> {
                 isSelected: _hasSmoked,
                 children: hasSmoked,
               ),
+              const SizedBox(height: 16),
               Text("How did your day go?", style: AppStyles.labelStyle(),),
+              const SizedBox(height: 8),
               TextField(
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
@@ -74,7 +78,9 @@ class _CheckInPageState extends State<CheckInPage> {
                 maxLength: 512,
                 decoration: AppStyles.inputStyle("Comment"),
               ),
+              const SizedBox(height: 10),
               Text("How difficult was today?", style: AppStyles.labelStyle(),),
+              const SizedBox(height: 8),
               ToggleButtons(
                 direction: vertical ? Axis.vertical : Axis.horizontal,
                 onPressed: (int index){
@@ -87,13 +93,14 @@ class _CheckInPageState extends State<CheckInPage> {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 selectedBorderColor: AppColors.primaryColor,
                 fillColor: AppColors.primaryColor,
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                     minHeight: 40.0,
-                    minWidth: 73.0
+                    minWidth: ScreenSizes.width(context)/5.51
                 ),
                 isSelected: _difficulty,
                 children: difficulty,
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
