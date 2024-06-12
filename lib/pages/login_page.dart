@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
 import 'globals.dart';
 
@@ -74,12 +75,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  // Add your onPressed logic here
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: 'Home',)));
                 },
                 style: ElevatedButton.styleFrom(
-                  // backgroundColor: Colors.orange[200], // Background color
                   backgroundColor: AppColors.primaryColor,
-                  minimumSize: const Size(400, 50), // Width and height
+                  minimumSize: const Size(400, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -107,7 +107,6 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text('Stop It', style: TextStyle(color: AppColors.primaryColor),))
                 ],
               ),
-              const SizedBox(height: 50,)
             ],
           ),
         ),
