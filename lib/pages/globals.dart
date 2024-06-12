@@ -36,10 +36,10 @@ class AppTitle {
 class AppStyles {
   static InputDecoration inputStyle(String hintText) {
     return InputDecoration(
-      border: const OutlineInputBorder(),
-      hintText: hintText,
-      filled: true,
-      fillColor: AppColors.accentColor
+        border: const OutlineInputBorder(),
+        hintText: hintText,
+        filled: true,
+        fillColor: AppColors.accentColor
     );
   }
 
@@ -50,11 +50,13 @@ class AppStyles {
     );
   }
 
-  static ButtonStyle largeButton() {
+  static ButtonStyle largeButton(BuildContext context) {
     return ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor, minimumSize: const Size(400, 50), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5),));
+        backgroundColor: AppColors.primaryColor,
+        minimumSize: Size(ScreenSizes.width(context), 50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5),)
+    );
   }
-
 }
 
 class SingleCard extends StatelessWidget {
