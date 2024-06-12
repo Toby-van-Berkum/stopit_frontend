@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
                 },
                 style: AppStyles.largeButton(context),
                 child: Align(
