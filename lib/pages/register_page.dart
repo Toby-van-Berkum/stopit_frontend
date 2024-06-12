@@ -73,13 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,)));
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor, // Background color
-                  minimumSize: const Size(400, 50), // Width and height
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), // Rectangular shape
-                  ),
-                ),
+                style: AppStyles.largeButton(context),
                 child: const Align(
                   child: Padding(
                     padding: EdgeInsets.only(left: 16.0),
