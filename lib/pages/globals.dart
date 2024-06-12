@@ -50,6 +50,10 @@ class AppStyles {
     );
   }
 
+  static TextStyle headerStyle() {
+    return const TextStyle(fontSize: 45);
+  }
+
   static ButtonStyle largeButton(BuildContext context) {
     return ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryColor,
@@ -87,5 +91,11 @@ class SingleCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class Components {
+  static Radio? radioButton() {
+    return null;
   }
 }

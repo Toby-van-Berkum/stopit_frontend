@@ -25,9 +25,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       title: Text(
         widget.title,
-        style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        ),
+        style: AppStyles.labelStyle()
       ),
       ),
       body: Center(
@@ -37,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text("Login", style: TextStyle(fontSize: 45),),
+              Text("Login", style: AppStyles.headerStyle(),),
               const SizedBox(height: 50,),
               Text(
                 "Email",
