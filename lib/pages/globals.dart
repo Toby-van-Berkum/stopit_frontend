@@ -40,6 +40,11 @@ class AppStyles {
     );
   }
 
+  static ButtonStyle largeButton() {
+    return ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryColor, minimumSize: const Size(400, 50), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5),));
+  }
+
 }
 
 class SingleCard extends StatelessWidget {
