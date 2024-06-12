@@ -40,16 +40,16 @@ class AppStyles {
     );
   }
 
+}
 
-class SingleCard extends StatelessWidget{
+class SingleCard extends StatelessWidget {
   final String headText;
   final String statsText;
   final double widthCard;
   final Color colorCard;
 
-  const SingleCard(
-      {super.key, required this.headText, required this.statsText,
-        required this.widthCard, required this.colorCard});
+  const SingleCard({super.key, required this.headText, required this.statsText,
+    required this.widthCard, required this.colorCard});
 
   @override
   Widget build(BuildContext context) {
