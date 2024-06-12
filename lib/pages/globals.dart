@@ -39,8 +39,7 @@ class AppStyles {
         border: const OutlineInputBorder(),
         hintText: hintText,
         filled: true,
-        fillColor: AppColors.accentColor
-    );
+        fillColor: AppColors.accentColor);
   }
 
   static TextStyle labelStyle() {
@@ -58,8 +57,9 @@ class AppStyles {
     return ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryColor,
         minimumSize: Size(ScreenSizes.width(context), 50),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5),)
-    );
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ));
   }
 }
 
@@ -69,11 +69,17 @@ class SingleCard extends StatelessWidget {
   final double widthCard;
   final Color colorCard;
 
-  const SingleCard({super.key, required this.headText, required this.statsText,
-    required this.widthCard, required this.colorCard});
+  const SingleCard(
+      {super.key,
+      required this.headText,
+      required this.statsText,
+      required this.widthCard,
+      required this.colorCard});
 
   @override
   Widget build(BuildContext context) {
+    const double paddingCard = 18.0;
+
     return Container(
       width: widthCard,
       // height: 40,
@@ -81,10 +87,16 @@ class SingleCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            padding: EdgeInsets.all(paddingCard),
             alignment: Alignment.centerLeft,
-            child: Text(headText, textAlign: TextAlign.end),
+            child: Text(
+              headText,
+              textAlign: TextAlign.end,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
           ),
           Container(
+            padding: EdgeInsets.all(paddingCard),
             alignment: Alignment.centerRight,
             child: Text(statsText, textAlign: TextAlign.start),
           )
@@ -93,4 +105,3 @@ class SingleCard extends StatelessWidget {
     );
   }
 }
-

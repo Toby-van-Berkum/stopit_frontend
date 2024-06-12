@@ -60,18 +60,19 @@ class _DashboardPageState extends State<DashboardPage> {
                 widthCard: (ScreenSizes.width(context)),
                 colorCard: AppColors.yellow),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SingleCard(
                     headText: 'You saved',
                     statsText: '€30',
                     widthCard:
-                        ((ScreenSizes.width(context) / 2) - customPadding),
+                        ((ScreenSizes.width(context) / 2) - customPadding - 4),
                     colorCard: AppColors.blue),
                 SingleCard(
                     headText: 'Your health',
                     statsText: 'insert text',
                     widthCard:
-                        ((ScreenSizes.width(context) / 2) - customPadding),
+                        ((ScreenSizes.width(context) / 2) - customPadding - 4),
                     colorCard: AppColors.green),
               ],
             )
