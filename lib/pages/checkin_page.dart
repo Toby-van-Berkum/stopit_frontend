@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'globals.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key, required this.title});
+class CheckInPage extends StatefulWidget {
+  const CheckInPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<CheckInPage> createState() => _CheckInPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _CheckInPageState extends State<CheckInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-
+              ElevatedButton(onPressed: null, child: Text("ur mum"))
             ],
           ),
         ),

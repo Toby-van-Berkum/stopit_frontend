@@ -18,3 +18,7 @@ class AppColors {
 class AppFonts {
   static final TextTheme poppins = GoogleFonts.poppinsTextTheme();
 }
+
+class AppTitle {
+  static const String title = "Stop It";
+}

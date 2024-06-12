@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
 import 'globals.dart';
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: 'Home',)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
@@ -102,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Text("Don't have an account yet?"),
                   TextButton(
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: 'Register',)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: AppTitle.title,)));
                   } ,
                       child: const Text('Stop It', style: TextStyle(color: AppColors.primaryColor),))
                 ],
