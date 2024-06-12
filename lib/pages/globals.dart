@@ -15,6 +15,16 @@ class AppColors {
 // Add more colors as needed
 }
 
+class ScreenSizes {
+  static double width(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  static double height(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+}
+
 class AppFonts {
   static final TextTheme poppins = GoogleFonts.poppinsTextTheme();
 }
