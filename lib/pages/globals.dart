@@ -34,7 +34,7 @@ class AppTitle {
 }
 
 class AppStyles {
-  static InputDecoration inputStyle(String hintText) {
+  static InputDecoration inputStyle([String? hintText]) {
     return InputDecoration(
         border: const OutlineInputBorder(),
         hintText: hintText,
