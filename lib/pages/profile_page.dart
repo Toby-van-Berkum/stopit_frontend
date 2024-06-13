@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'globals.dart';
+import '../globals.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.title});
@@ -71,11 +71,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-
-              Row(
-
-              ),
-
               Container(
                 margin: EdgeInsets.only(bottom: customPadding * 2),
                 child: Text('Keep going! It’ll only get easier'),
