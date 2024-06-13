@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'globals.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -31,23 +32,16 @@ class _DashboardPageState extends State<DashboardPage> {
           children: <Widget>[
             Text('Hello user'),
             ElevatedButton(
-              onPressed: null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
-                minimumSize: const Size(400, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              child: const Align(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
+              },
+              style: AppStyles.largeButton(context),
+              child: Align(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16.0),
+                  padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
-                    'Check in',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                      'Check In',
+                      style: AppStyles.labelStyle()
                   ),
                 ),
               ),
