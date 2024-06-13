@@ -40,15 +40,17 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text("Register", style: AppStyles.headerStyle(),),
+                CustomSizedBox.large(),
                 Text(
                   "Before getting started we just need to ask you a couple questions to setup your account.",
                 ),
