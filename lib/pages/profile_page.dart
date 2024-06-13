@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 margin: EdgeInsets.only(
                     top: customPadding, bottom: customPadding * 2),
-                child: Text('Users achievements',
+                child: const Text('Users achievements',
                     textAlign: TextAlign.start,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),

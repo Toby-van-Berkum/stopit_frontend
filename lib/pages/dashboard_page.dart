@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
-import 'package:stopit_frontend/pages/journal_day_page.dart';
+import 'package:stopit_frontend/pages/profile_page.dart';
 import '../globals.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -26,6 +26,15 @@ class _DashboardPageState extends State<DashboardPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            tooltip: 'View Profile',
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(title: AppTitle.title,)));
+            },
+          ),
+        ],
       ),
       body: Container(
         margin: EdgeInsets.all(customPadding),
