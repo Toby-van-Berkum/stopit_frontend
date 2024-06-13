@@ -75,7 +75,8 @@ class SingleCardStats extends StatelessWidget {
     return Container(
       width: widthCard,
       // height: 40,
-      color: colorCard,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorCard),
+
       child: Column(
         children: [
           Container(
@@ -120,7 +121,7 @@ class SingleCardAchievementExplanation extends StatelessWidget {
     return Container(
       width: widthCard,
       // height: 40,
-      color: colorCard,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorCard),
       child: Column(
         children: [
           Container(

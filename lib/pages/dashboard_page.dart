@@ -33,6 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(title: AppTitle.title,)));
             },
+            iconSize: 48,
           ),
         ],
       ),
