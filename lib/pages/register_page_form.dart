@@ -221,7 +221,7 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                         'Sign Up',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20, // Bold text
+                          fontSize: 18, // Bold text
                         ),
                       ),
                     ),
