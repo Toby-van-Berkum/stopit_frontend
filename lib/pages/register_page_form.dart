@@ -17,13 +17,14 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
   bool _hasQuit = false;
   DateTime? _quitDate;
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
+  final List<bool> _isSelected = [false, false]; // Initial state of toggle buttons
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(), // Default date
-      firstDate: DateTime(1900), // Earliest date
-      lastDate: DateTime.now(), // Latest date
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
     );
     if (picked != null && picked != _quitDate) {
       setState(() {
@@ -52,147 +53,104 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                   "Before getting started we just need to ask you a couple questions to setup your account.",
                 ),
                 const SizedBox(height: 16),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
-                      flex: 2, // 2/3 of the row width
-                      child: FractionallySizedBox(
-                        widthFactor: 1.0,
-                        child: Text(
-                          "How many cigarettes do you smoke a day?",
-                          softWrap: true,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      flex: 1, // 1/3 of the row width
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: AppStyles.inputStyle(),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a number';
-                          }
-                          final number = int.tryParse(value);
-                          if (number == null || number < 0) {
-                            return 'Please enter a valid number';
-                          }
-                          return null;
-                        },
-                      ),
+                    Text("How many cigarettes do you smoke a day?"),
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: AppStyles.inputStyle(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a number';
+                        }
+                        final number = int.tryParse(value);
+                        if (number == null || number < 0) {
+                          return 'Please enter a valid number';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
-                      flex: 2, // 2/3 of the row width
-                      child: FractionallySizedBox(
-                        widthFactor: 1.0,
-                        child: Text(
-                          "How long have you been smoking (years)?",
-                          softWrap: true,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      flex: 1, // 1/3 of the row width
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: AppStyles.inputStyle(),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the number of years';
-                          }
-                          final number = int.tryParse(value);
-                          if (number == null || number < 0) {
-                            return 'Please enter a valid number';
-                          }
-                          return null;
-                        },
-                      ),
+                    Text("How long have you been smoking (years)?"),
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: AppStyles.inputStyle(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the number of years';
+                        }
+                        final number = int.tryParse(value);
+                        if (number == null || number < 0) {
+                          return 'Please enter a valid number';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
-                      flex: 2, // 2/3 of the row width
-                      child: FractionallySizedBox(
-                        widthFactor: 1.0,
-                        child: Text(
-                          "Have you already quit?",
-                          softWrap: true,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      flex: 1, // 1/3 of the row width
-                      child: DropdownButtonFormField<bool>(
-                        decoration: AppStyles.inputStyle(),
-                        items: [
-                          DropdownMenuItem(
-                            value: true,
-                            child: Text("Yes"),
-                          ),
-                          DropdownMenuItem(
-                            value: false,
-                            child: Text("No"),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            _hasQuit = value ?? false;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Please select an option';
+                    Text("Have you already quit?"),
+                    const SizedBox(height: 8),
+                    ToggleButtons(
+                      isSelected: _isSelected,
+                      onPressed: (int index) {
+                        setState(() {
+                          // Update isSelected based on index
+                          for (int buttonIndex = 0; buttonIndex < _isSelected.length; buttonIndex++) {
+                            _isSelected[buttonIndex] = buttonIndex == index;
                           }
-                          return null;
-                        },
-                      ),
+                          // Update _hasQuit based on selected index
+                          _hasQuit = _isSelected[0]; // true if index 0 is selected (Yes), false otherwise (No)
+                        });
+                      },
+                      fillColor: AppColors.primaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("Yes"),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("No"),
+                        ),
+                      ],
                     ),
                   ],
                 ),
                 if (_hasQuit) ...[
                   const SizedBox(height: 16),
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        flex: 2, // 2/3 of the row width
-                        child: FractionallySizedBox(
-                          widthFactor: 1.0,
-                          child: Text(
-                            "When did you quit?",
-                            softWrap: true,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        flex: 1, // 1/3 of the row width
-                        child: GestureDetector(
-                          onTap: () => _selectDate(context),
-                          child: AbsorbPointer(
-                            child: TextFormField(
-                              decoration: AppStyles.inputStyle(
-                                _quitDate == null
-                                    ? "Enter date"
-                                    : _dateFormat.format(_quitDate!),
-                              ),
-                              validator: (value) {
-                                if (_quitDate == null) {
-                                  return 'Please select a date';
-                                }
-                                return null;
-                              },
+                      Text("When did you quit?"),
+                      const SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: () => _selectDate(context),
+                        child: AbsorbPointer(
+                          child: TextFormField(
+                            decoration: AppStyles.inputStyle(
+                              _quitDate == null
+                                  ? "Enter date"
+                                  : _dateFormat.format(_quitDate!),
                             ),
+                            validator: (value) {
+                              if (_quitDate == null) {
+                                return 'Please select a date';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                       ),
@@ -200,29 +158,26 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                   ),
                 ],
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(
-                            title: AppTitle.title,
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(
+                              title: AppTitle.title,
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                  },
-                  style: AppStyles.largeButton(context),
-                  child: const Align(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18, // Bold text
-                        ),
+                        );
+                      }
+                    },
+                    style: AppStyles.largeButton(context),
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
                   ),
