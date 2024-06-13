@@ -66,7 +66,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
             Padding(
               padding: EdgeInsets.only(bottom: 10.0),
-              child: SingleCard(
+              child: SingleCardStats(
                 headText: 'No cigarettes',
                 statsText: '2 months, 4 days',
                 widthCard: (ScreenSizes.width(context)),
@@ -76,13 +76,13 @@ class _DashboardPageState extends State<DashboardPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SingleCard(
+                SingleCardStats(
                     headText: 'You saved',
                     statsText: '€30',
                     widthCard:
                         ((ScreenSizes.width(context) / 2) - customPadding - 4),
                     colorCard: AppColors.blue),
-                SingleCard(
+                SingleCardStats(
                     headText: 'Your health',
                     statsText: 'insert text',
                     widthCard:

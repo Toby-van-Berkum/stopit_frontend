@@ -63,18 +63,61 @@ class AppStyles {
   }
 }
 
-class SingleCard extends StatelessWidget {
+class SingleCardStats extends StatelessWidget {
   final String headText;
   final String statsText;
   final double widthCard;
   final Color colorCard;
 
-  const SingleCard(
+  const SingleCardStats(
       {super.key,
       required this.headText,
       required this.statsText,
       required this.widthCard,
       required this.colorCard});
+
+  @override
+  Widget build(BuildContext context) {
+    const double paddingCard = 18.0;
+
+    return Container(
+      width: widthCard,
+      // height: 40,
+      color: colorCard,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(paddingCard),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              headText,
+              textAlign: TextAlign.end,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(paddingCard),
+            alignment: Alignment.centerRight,
+            child: Text(statsText, textAlign: TextAlign.start),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SingleCardText extends StatelessWidget {
+  final String headText;
+  final String statsText;
+  final double widthCard;
+  final Color colorCard;
+
+  const SingleCardText(
+      {super.key,
+        required this.headText,
+        required this.statsText,
+        required this.widthCard,
+        required this.colorCard});
 
   @override
   Widget build(BuildContext context) {

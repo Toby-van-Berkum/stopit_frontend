@@ -40,13 +40,13 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SingleCard(
+                SingleCardStats(
                     headText: 'You saved',
                     statsText: '€30',
                     widthCard:
                     ((ScreenSizes.width(context) / 2) - customPadding - 4),
                     colorCard: AppColors.blue),
-                SingleCard(
+                SingleCardStats(
                     headText: 'Your health',
                     statsText: 'insert text',
                     widthCard:
@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             Padding(
               padding: EdgeInsets.only(bottom: 10.0),
-              child: SingleCard(
+              child: SingleCardStats(
                 headText: 'No cigarettes',
                 statsText: '2 months, 4 days',
                 widthCard: (ScreenSizes.width(context)),
