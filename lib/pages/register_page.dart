@@ -35,7 +35,6 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                CustomSizedBox.large(),
                 Text("Register", style: AppStyles.headerStyle()),
                 CustomSizedBox.large(),
                 Text(

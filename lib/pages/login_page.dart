@@ -37,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                CustomSizedBox.large(),
                 Text("Login", style: AppStyles.headerStyle()),
                 CustomSizedBox.large(),
                 Text("Email", style: AppStyles.labelStyle()),

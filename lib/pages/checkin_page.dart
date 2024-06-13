@@ -64,7 +64,6 @@ class _CheckInPageState extends State<CheckInPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                CustomSizedBox.large(),
                 Text("Daily Check Up", style: AppStyles.headerStyle()),
                 CustomSizedBox.large(),
                 Text("Did you smoke today?", style: AppStyles.labelStyle()),
