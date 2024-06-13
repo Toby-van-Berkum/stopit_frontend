@@ -30,29 +30,48 @@ class _DashboardPageState extends State<DashboardPage> {
         margin: EdgeInsets.all(customPadding),
         child: Column(
           children: <Widget>[
-            Text('Hello user'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
-              },
-              style: AppStyles.largeButton(context),
-              child: Align(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                      'Check In',
-                      style: AppStyles.labelStyle()
+            Container(
+              margin: EdgeInsets.only(
+                  top: customPadding, bottom: customPadding * 2),
+              child: Text('Hello user,',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: customPadding * 3),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CheckInPage(
+                                title: AppTitle.title,
+                              )));
+                },
+                style: AppStyles.largeButton(context),
+                child: Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Text('Check In', style: AppStyles.labelStyle()),
                   ),
                 ),
               ),
             ),
-            Text('“When you quit smoking, you not only add years to your life '
-                'but also life to your years”'),
-            SingleCard(
+            Container(
+              margin: EdgeInsets.only(bottom: customPadding * 2),
+              child: Text('“When you quit smoking, you not only add years to your life '
+                  'but also life to your years”'),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(bottom: 10.0),
+              child: SingleCard(
                 headText: 'No cigarettes',
                 statsText: '2 months, 4 days',
                 widthCard: (ScreenSizes.width(context)),
-                colorCard: AppColors.yellow),
+                colorCard: AppColors.yellow,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
