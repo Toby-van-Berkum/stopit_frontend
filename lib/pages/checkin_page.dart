@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
-import 'globals.dart';
+import '../globals.dart';
 
 class CheckInPage extends StatefulWidget {
   const CheckInPage({super.key, required this.title});
@@ -90,7 +90,7 @@ class _CheckInPageState extends State<CheckInPage> {
               ),
               CustomSizedBox.medium(),
               Text("How did your day go?", style: AppStyles.labelStyle()),
-              const SizedBox(height: 8),
+              CustomSizedBox.small(),
               TextFormField(
                 controller: _commentController,
                 keyboardType: TextInputType.multiline,
@@ -126,23 +126,18 @@ class _CheckInPageState extends State<CheckInPage> {
               LargeButton(
                 buttonLabel: "Submit",
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    setState(() {
-                      _comment = _commentController.text;
-                    });
+                  // Save the values
+                  debugPrint('Comment: $_comment');
+                  debugPrint('Has smoked: $_hasSmokedValue');
+                  debugPrint('Difficulty: $_difficultyValue');
+                  //TODO: Fix false value pass on (passes null when not null)
 
-                    // Save the values
-                    debugPrint('Comment: $_comment');
-                    debugPrint('Has smoked: $_hasSmokedValue');
-                    debugPrint('Difficulty: $_difficultyValue');
-
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DashboardPage(title: AppTitle.title),
-                      ),
-                    );
-                  }
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashboardPage(title: AppTitle.title),
+                    ),
+                  );
                 },
               ),
             ],

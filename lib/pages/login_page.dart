@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
-import 'globals.dart';
+import '../globals.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});

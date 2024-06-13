@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stopit_frontend/pages/globals.dart';
+import 'package:stopit_frontend/globals.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
 import 'package:intl/intl.dart';
 
