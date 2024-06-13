@@ -163,7 +163,7 @@ class SingleCardAchievement extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: paddingCard),
       width: widthCard,
-      color: colorCard,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorCard),
       child: Column(
         children: [
           Container(

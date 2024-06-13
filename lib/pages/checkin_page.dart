@@ -25,11 +25,11 @@ const List<Widget> hasSmoked = <Widget>[
 ];
 
 const List<Widget> difficulty = <Widget>[
-  Text("Very Hard"),
+  Text("Very\nHard"),
   Text("Hard"),
   Text("Medium"),
   Text("Easy"),
-  Text("Very Easy")
+  Text("Very\nEasy")
 ];
 
 class _CheckInPageState extends State<CheckInPage> {
@@ -83,7 +83,7 @@ class _CheckInPageState extends State<CheckInPage> {
                   selectedBorderColor: AppColors.primaryColor,
                   fillColor: AppColors.primaryColor,
                   constraints: const BoxConstraints(
-                    minHeight: 40.0,
+                    minHeight: 48.0,
                     minWidth: 80.0,
                   ),
                   isSelected: _hasSmoked,
@@ -117,8 +117,8 @@ class _CheckInPageState extends State<CheckInPage> {
                   selectedBorderColor: AppColors.primaryColor,
                   fillColor: AppColors.primaryColor,
                   constraints: BoxConstraints(
-                    minHeight: 40.0,
-                    minWidth: ScreenSizes.width(context) / 5.51,
+                    minHeight: 48.0,
+                    minWidth: ScreenSizes.width(context) / 5.7,
                   ),
                   isSelected: _difficulty,
                   children: difficulty,
