@@ -34,24 +34,24 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(height: CustomBoxHeights.large,),
+            CustomSizedBox.large(),
             Text("Login", style: AppStyles.headerStyle(),),
-            const SizedBox(height: CustomBoxHeights.large,),
+            CustomSizedBox.large(),
             Text(
               "Email",
               style: AppStyles.labelStyle()
             ),
-            const SizedBox(height: CustomBoxHeights.small),
+            CustomSizedBox.small(),
             TextField(
               controller: _emailController,
               decoration: AppStyles.inputStyle("Email")
             ),
-            const SizedBox(height: CustomBoxHeights.medium),
+            CustomSizedBox.medium(),
             Text(
               "Password",
               style: AppStyles.labelStyle()
             ),
-            const SizedBox(height: CustomBoxHeights.small),
+            CustomSizedBox.small(),
             TextField(
               controller: _passwordController,
               obscureText: true,
@@ -59,11 +59,11 @@ class _LoginPageState extends State<LoginPage> {
               autocorrect: false,
               decoration: AppStyles.inputStyle("Password")
             ),
-            const SizedBox(height: CustomBoxHeights.large),
+            CustomSizedBox.large(),
             LargeButton(buttonLabel: "Login", onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DashboardPage(title: AppTitle.title)),
+                MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title)),
               );
             },),
             Row(

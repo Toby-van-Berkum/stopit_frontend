@@ -71,21 +71,9 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: AppStyles.inputStyle("Password")
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,)));
-              },
-              style: AppStyles.largeButton(context),
-              child: Align(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'Register',
-                    style: AppStyles.labelStyle()
-                  ),
-                ),
-              ),
-            ),
+            LargeButton(buttonLabel: "Register", onPressed: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,)));
+            }),
           ],
         ),
       ),

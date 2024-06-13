@@ -44,11 +44,11 @@ class _CheckInPageState extends State<CheckInPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(height: CustomBoxHeights.large,),
+            CustomSizedBox.large(),
             Text("Daily Check Up", style: AppStyles.headerStyle(),),
-            const SizedBox(height: CustomBoxHeights.large),
+            CustomSizedBox.large(),
             Text("Did you smoke today?", style: AppStyles.labelStyle(),),
-            const SizedBox(height: CustomBoxHeights.small),
+            CustomSizedBox.small(),
             ToggleButtons(
               direction: vertical ? Axis.vertical : Axis.horizontal,
               onPressed: (int index){
@@ -68,7 +68,7 @@ class _CheckInPageState extends State<CheckInPage> {
               isSelected: _hasSmoked,
               children: hasSmoked,
             ),
-            const SizedBox(height: CustomBoxHeights.medium),
+            CustomSizedBox.medium(),
             Text("How did your day go?", style: AppStyles.labelStyle(),),
             const SizedBox(height: 8),
             TextField(
@@ -80,7 +80,7 @@ class _CheckInPageState extends State<CheckInPage> {
             ),
             const SizedBox(height: 10),
             Text("How difficult was today?", style: AppStyles.labelStyle(),),
-            const SizedBox(height: CustomBoxHeights.small),
+            CustomSizedBox.small(),
             ToggleButtons(
               direction: vertical ? Axis.vertical : Axis.horizontal,
               onPressed: (int index){
@@ -100,22 +100,10 @@ class _CheckInPageState extends State<CheckInPage> {
               isSelected: _difficulty,
               children: difficulty,
             ),
-            const SizedBox(height: CustomBoxHeights.large),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
-              },
-              style: AppStyles.largeButton(context),
-              child: Align(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'Submit',
-                    style: AppStyles.labelStyle()
-                  ),
-                ),
-              ),
-            ),
+            CustomSizedBox.large(),
+            LargeButton(buttonLabel: "Submit", onPressed: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
+            }),
           ],
         ),
       ),
