@@ -40,23 +40,9 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             Container(
               margin: EdgeInsets.only(bottom: customPadding * 3),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CheckInPage(
-                                title: AppTitle.title,
-                              )));
-                },
-                style: AppStyles.largeButton(context),
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Text('Check In', style: AppStyles.labelStyle()),
-                  ),
-                ),
-              ),
+              child: LargeButton(buttonLabel: "Check In", onPressed: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
+              }),
             ),
             Container(
               margin: EdgeInsets.only(bottom: customPadding * 2),

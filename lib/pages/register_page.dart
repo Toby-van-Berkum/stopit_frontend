@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/globals.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
+import 'package:stopit_frontend/pages/register_page_form.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.title});
@@ -71,21 +72,9 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: AppStyles.inputStyle("Password")
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,)));
-              },
-              style: AppStyles.largeButton(context),
-              child: Align(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'Register',
-                    style: AppStyles.labelStyle()
-                  ),
-                ),
-              ),
-            ),
+            LargeButton(buttonLabel: "Next", onPressed: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegisterPageForm(title: AppTitle.title,)));
+            }),
           ],
         ),
       ),

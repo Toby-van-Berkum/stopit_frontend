@@ -53,14 +53,6 @@ class AppStyles {
     return const TextStyle(fontSize: 45);
   }
 
-  static ButtonStyle largeButton(BuildContext context) {
-    return ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor,
-        minimumSize: Size(ScreenSizes.width(context), 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-        ));
-  }
 }
 
 class SingleCardStats extends StatelessWidget {
@@ -151,11 +143,19 @@ class SingleCardAchievement extends StatelessWidget {
   }
 }
 
-class CustomBoxHeights {
-  static const double small = 8;
-  static const double medium = 16;
-  static const double large = 48;
+class CustomSizedBox {
+  static SizedBox small() {
+    return const SizedBox(height: 8);
+  }
+  static SizedBox medium() {
+    return const SizedBox(height: 16);
+  }
 
+  static SizedBox large() {
+    return const SizedBox(height: 48);
+  }
+
+  //Add more sizes as needed
 }
 
 class LargeButton extends StatelessWidget {
@@ -170,23 +170,21 @@ class LargeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryColor,
-          minimumSize: Size(ScreenSizes.width(context), 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryColor,
+        minimumSize: Size(ScreenSizes.width(context), 50),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
         ),
-        child: Align(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text(
-              buttonLabel,
-              style: const TextStyle(fontSize: 16), // Replace with your label style
-            ),
+      ),
+      child: Align(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: Text(
+            buttonLabel,
+            style: AppStyles.labelStyle() // Replace with your label style
           ),
         ),
       ),

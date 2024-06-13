@@ -200,33 +200,12 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                   ),
                 ],
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(
-                            title: AppTitle.title,
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  style: AppStyles.largeButton(context),
-                  child: const Align(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18, // Bold text
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                LargeButton(buttonLabel: "Sign Up", onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage(title: AppTitle.title,),),
+                  );}})
               ],
             ),
           ),
