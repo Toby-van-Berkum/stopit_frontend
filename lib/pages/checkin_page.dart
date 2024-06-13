@@ -38,86 +38,85 @@ class _CheckInPageState extends State<CheckInPage> {
           ),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("Daily Check Up", style: AppStyles.headerStyle(),),
-              const SizedBox(height: 40),
-              Text("Did you smoke today?", style: AppStyles.labelStyle(),),
-              const SizedBox(height: 8),
-              ToggleButtons(
-                direction: vertical ? Axis.vertical : Axis.horizontal,
-                onPressed: (int index){
-                  setState(() {
-                    for(int i = 0; i < _hasSmoked.length; i++) {
-                      _hasSmoked[i] = i == index;
-                    }
-                  });
-                },
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                selectedBorderColor: AppColors.primaryColor,
-                fillColor: AppColors.primaryColor,
-                constraints: const BoxConstraints(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: CustomBoxHeights.large,),
+            Text("Daily Check Up", style: AppStyles.headerStyle(),),
+            const SizedBox(height: CustomBoxHeights.large),
+            Text("Did you smoke today?", style: AppStyles.labelStyle(),),
+            const SizedBox(height: CustomBoxHeights.small),
+            ToggleButtons(
+              direction: vertical ? Axis.vertical : Axis.horizontal,
+              onPressed: (int index){
+                setState(() {
+                  for(int i = 0; i < _hasSmoked.length; i++) {
+                    _hasSmoked[i] = i == index;
+                  }
+                });
+              },
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: AppColors.primaryColor,
+              fillColor: AppColors.primaryColor,
+              constraints: const BoxConstraints(
+                minHeight: 40.0,
+                minWidth: 80.0
+              ),
+              isSelected: _hasSmoked,
+              children: hasSmoked,
+            ),
+            const SizedBox(height: CustomBoxHeights.medium),
+            Text("How did your day go?", style: AppStyles.labelStyle(),),
+            const SizedBox(height: 8),
+            TextField(
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 7,
+              maxLength: 512,
+              decoration: AppStyles.inputStyle("Comment"),
+            ),
+            const SizedBox(height: 10),
+            Text("How difficult was today?", style: AppStyles.labelStyle(),),
+            const SizedBox(height: CustomBoxHeights.small),
+            ToggleButtons(
+              direction: vertical ? Axis.vertical : Axis.horizontal,
+              onPressed: (int index){
+                setState(() {
+                  for(int i = 0; i < _difficulty.length; i++) {
+                    _difficulty[i] = i == index;
+                  }
+                });
+              },
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: AppColors.primaryColor,
+              fillColor: AppColors.primaryColor,
+              constraints: BoxConstraints(
                   minHeight: 40.0,
-                  minWidth: 80.0
-                ),
-                isSelected: _hasSmoked,
-                children: hasSmoked,
+                  minWidth: ScreenSizes.width(context)/5.51
               ),
-              const SizedBox(height: 16),
-              Text("How did your day go?", style: AppStyles.labelStyle(),),
-              const SizedBox(height: 8),
-              TextField(
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLines: 7,
-                maxLength: 512,
-                decoration: AppStyles.inputStyle("Comment"),
-              ),
-              const SizedBox(height: 10),
-              Text("How difficult was today?", style: AppStyles.labelStyle(),),
-              const SizedBox(height: 8),
-              ToggleButtons(
-                direction: vertical ? Axis.vertical : Axis.horizontal,
-                onPressed: (int index){
-                  setState(() {
-                    for(int i = 0; i < _difficulty.length; i++) {
-                      _difficulty[i] = i == index;
-                    }
-                  });
-                },
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                selectedBorderColor: AppColors.primaryColor,
-                fillColor: AppColors.primaryColor,
-                constraints: BoxConstraints(
-                    minHeight: 40.0,
-                    minWidth: ScreenSizes.width(context)/5.51
-                ),
-                isSelected: _difficulty,
-                children: difficulty,
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
-                },
-                style: AppStyles.largeButton(context),
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Text(
-                      'Submit',
-                      style: AppStyles.labelStyle()
-                    ),
+              isSelected: _difficulty,
+              children: difficulty,
+            ),
+            const SizedBox(height: CustomBoxHeights.large),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
+              },
+              style: AppStyles.largeButton(context),
+              child: Align(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    'Submit',
+                    style: AppStyles.labelStyle()
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

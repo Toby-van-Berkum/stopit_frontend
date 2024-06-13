@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
+import 'package:stopit_frontend/pages/journal_day_page.dart';
 import 'globals.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -30,10 +31,10 @@ class _DashboardPageState extends State<DashboardPage> {
         margin: EdgeInsets.all(customPadding),
         child: Column(
           children: <Widget>[
-            Text('Hello user'),
+            const Text('Hello user'),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const JournalDayPage(title: AppTitle.title,)));
               },
               style: AppStyles.largeButton(context),
               child: Align(
@@ -46,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
             ),
-            Text('“When you quit smoking, you not only add years to your life '
+            const Text('“When you quit smoking, you not only add years to your life '
                 'but also life to your years”'),
             SingleCard(
                 headText: 'No cigarettes',

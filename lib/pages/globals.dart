@@ -105,3 +105,46 @@ class SingleCard extends StatelessWidget {
     );
   }
 }
+
+class CustomBoxHeights {
+  static const double small = 8;
+  static const double medium = 16;
+  static const double large = 48;
+
+}
+
+class LargeButton extends StatelessWidget {
+  final String buttonLabel;
+  final VoidCallback onPressed;
+
+  const LargeButton({
+    super.key,
+    required this.buttonLabel,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryColor,
+          minimumSize: Size(ScreenSizes.width(context), 50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+        child: Align(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Text(
+              buttonLabel,
+              style: const TextStyle(fontSize: 16), // Replace with your label style
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
