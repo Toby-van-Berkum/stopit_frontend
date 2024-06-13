@@ -99,13 +99,13 @@ class SingleCardStats extends StatelessWidget {
   }
 }
 
-class SingleCardAchievement extends StatelessWidget {
+class SingleCardAchievementExplanation extends StatelessWidget {
   final String headText;
   final String statsText;
   final double widthCard;
   final bool achievementCompleted;
 
-  const SingleCardAchievement(
+  const SingleCardAchievementExplanation(
       {super.key,
         required this.headText,
         required this.statsText,
@@ -138,6 +138,43 @@ class SingleCardAchievement extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(statsText, textAlign: TextAlign.start),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class SingleCardAchievement extends StatelessWidget {
+  final String headText;
+  final double widthCard;
+  final Color colorCard;
+
+  const SingleCardAchievement(
+      {super.key,
+        required this.headText,
+        required this.widthCard,
+        required this.colorCard,
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    const double paddingCard = 18.0;
+
+    return Container(
+      margin: const EdgeInsets.only(right: paddingCard),
+      width: widthCard,
+      color: colorCard,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: (ScreenSizes.width(context) / 8), horizontal: 0.0),
+            alignment: Alignment.center,
+            child: Text(
+              headText,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ),
         ],
       ),
     );

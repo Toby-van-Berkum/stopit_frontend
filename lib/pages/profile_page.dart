@@ -58,26 +58,70 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 margin: EdgeInsets.only(
                     top: customPadding, bottom: customPadding * 2),
-                child: const Text('Users achievements',
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: customPadding,
+                      right: customPadding,
+                      bottom: customPadding),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Your achievements',
                     textAlign: TextAlign.start,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: customPadding * 2),
+                child: Text('Keep going! It’ll only get easier'),
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                    top: customPadding,
+                    right: customPadding,
+                    bottom: customPadding),
+                alignment: Alignment.centerLeft,
                 child: Text(
-                    '“When you quit smoking, you not only add years to your life '
-                    'but also life to your years”'),
+                  'You Saved',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    SingleCardAchievement(
+                      headText: "20",
+                      widthCard: ScreenSizes.width(context) / 4,
+                      colorCard: AppColors.blue,
+                    ),
+                    SingleCardAchievement(
+                      headText: "20",
+                      widthCard: ScreenSizes.width(context) / 4,
+                      colorCard: AppColors.blue,
+                    ),
+                    SingleCardAchievement(
+                      headText: "20",
+                      widthCard: ScreenSizes.width(context) / 4,
+                      colorCard: AppColors.blue,
+                    ),
+                    SingleCardAchievement(
+                      headText: "20",
+                      widthCard: ScreenSizes.width(context) / 4,
+                      colorCard: AppColors.blue,
+                    ),
+                  ],
+                ),
               ),
               ...List.generate(keysHealthAchievementsExplanations.length, (i) {
                 return Padding(
-                    padding: EdgeInsets.only(top: customPadding),
-                    child: SingleCardAchievement(
-                        headText: keysHealthAchievementsExplanations[i],
-                        statsText: valuesHealthAchievementsExplanations[i],
-                        widthCard: ScreenSizes.width(context),
-                        achievementCompleted: true
-                    ),
+                  padding: EdgeInsets.only(top: customPadding),
+                  child: SingleCardAchievementExplanation(
+                      headText: keysHealthAchievementsExplanations[i],
+                      statsText: valuesHealthAchievementsExplanations[i],
+                      widthCard: ScreenSizes.width(context),
+                      achievementCompleted: true),
                 );
               }),
             ],
