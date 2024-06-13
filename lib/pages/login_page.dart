@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
+import 'package:stopit_frontend/pages/register_page_form.dart';
 import 'globals.dart';
 
 class LoginPage extends StatefulWidget {
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPageForm(title: AppTitle.title,)));
                 },
                 style: AppStyles.largeButton(context),
                 child: Align(
