@@ -53,23 +53,15 @@ class AppStyles {
     return const TextStyle(fontSize: 45);
   }
 
-  static ButtonStyle largeButton(BuildContext context) {
-    return ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor,
-        minimumSize: Size(ScreenSizes.width(context), 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-        ));
-  }
 }
 
-class SingleCard extends StatelessWidget {
+class SingleCardStats extends StatelessWidget {
   final String headText;
   final String statsText;
   final double widthCard;
   final Color colorCard;
 
-  const SingleCard(
+  const SingleCardStats(
       {super.key,
       required this.headText,
       required this.statsText,
@@ -106,11 +98,64 @@ class SingleCard extends StatelessWidget {
   }
 }
 
-class CustomBoxHeights {
-  static const double small = 8;
-  static const double medium = 16;
-  static const double large = 48;
+class SingleCardAchievement extends StatelessWidget {
+  final String headText;
+  final String statsText;
+  final double widthCard;
+  final bool achievementCompleted;
 
+  const SingleCardAchievement(
+      {super.key,
+        required this.headText,
+        required this.statsText,
+        required this.widthCard,
+        required this.achievementCompleted,
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    const double paddingCard = 18.0;
+    final Color colorCard = achievementCompleted ? AppColors.green : AppColors.yellow;
+
+    return Container(
+      width: widthCard,
+      // height: 40,
+      color: colorCard,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: paddingCard, left: paddingCard, right: paddingCard),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              headText,
+              textAlign: TextAlign.start,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(paddingCard),
+            alignment: Alignment.centerLeft,
+            child: Text(statsText, textAlign: TextAlign.start),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CustomSizedBox {
+  static SizedBox small() {
+    return const SizedBox(height: 8);
+  }
+  static SizedBox medium() {
+    return const SizedBox(height: 16);
+  }
+
+  static SizedBox large() {
+    return const SizedBox(height: 48);
+  }
+
+  //Add more sizes as needed
 }
 
 class LargeButton extends StatelessWidget {
@@ -125,23 +170,21 @@ class LargeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryColor,
-          minimumSize: Size(ScreenSizes.width(context), 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryColor,
+        minimumSize: Size(ScreenSizes.width(context), 50),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
         ),
-        child: Align(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text(
-              buttonLabel,
-              style: const TextStyle(fontSize: 16), // Replace with your label style
-            ),
+      ),
+      child: Align(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: Text(
+            buttonLabel,
+            style: AppStyles.labelStyle() // Replace with your label style
           ),
         ),
       ),

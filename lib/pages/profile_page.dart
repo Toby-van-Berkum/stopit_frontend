@@ -1,5 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'globals.dart';
+import '../globals.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.title});
@@ -15,6 +17,29 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> healthAchievementsExplanations = {
+      '20 minutes after quitting': 'Your heart rate and blood pressure drop.',
+      'A few days after quitting':
+          'The carbon monoxide level in your blood drops to normal.',
+      '2 weeks to 3 months after quitting':
+          'Your circulation improves and your lung function increases.',
+      '1 to 12 months after quitting':
+          'Coughing and shortness of breath decrease. Tiny hair-like structures (called cilia)  that move mucus out of the lungs start to regain normal function,  increasing their ability to handle mucus, clean the lungs, and reduce  the risk of infection.',
+      '1 to 2 years after quitting':
+          'Your risk of heart attack drops dramatically.',
+      '5 to 10 years after quitting':
+          'Your risk of cancers of the mouth, throat, and voice box (larynx) is cut in half. Your stroke risk decreases.',
+      '10 years after quitting':
+          'Your risk of lung cancer is about half that of a person who is still  smoking (after 10 to 15 years). Your risk of cancer of the bladder,  esophagus, and kidney decreases.',
+      '15 years after quitting':
+          'Your risk of coronary heart disease is close to that of a non-smoker.',
+    };
+
+    List<String> keysHealthAchievementsExplanations =
+        healthAchievementsExplanations.keys.toList();
+    List<String> valuesHealthAchievementsExplanations =
+        healthAchievementsExplanations.values.toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -25,53 +50,40 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      body: Container(
-        margin: EdgeInsets.all(customPadding),
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(
-                  top: customPadding, bottom: customPadding * 2),
-              child: Text('Users achievements',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SingleCard(
-                    headText: 'You saved',
-                    statsText: '€30',
-                    widthCard:
-                    ((ScreenSizes.width(context) / 2) - customPadding - 4),
-                    colorCard: AppColors.blue),
-                SingleCard(
-                    headText: 'Your health',
-                    statsText: 'insert text',
-                    widthCard:
-                    ((ScreenSizes.width(context) / 2) - customPadding - 4),
-                    colorCard: AppColors.green),
-              ],
-            ),
-
-            Container(
-              margin: EdgeInsets.only(bottom: customPadding * 2),
-              child: Text('“When you quit smoking, you not only add years to your life '
-                  'but also life to your years”'),
-            ),
-
-            Padding(
-              padding: EdgeInsets.only(bottom: 10.0),
-              child: SingleCard(
-                headText: 'No cigarettes',
-                statsText: '2 months, 4 days',
-                widthCard: (ScreenSizes.width(context)),
-                colorCard: AppColors.yellow,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(customPadding),
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(
+                    top: customPadding, bottom: customPadding * 2),
+                child: Text('Users achievements',
+                    textAlign: TextAlign.start,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               ),
-            ),
-          ],
+              Container(
+                margin: EdgeInsets.only(bottom: customPadding * 2),
+                child: Text(
+                    '“When you quit smoking, you not only add years to your life '
+                    'but also life to your years”'),
+              ),
+              ...List.generate(keysHealthAchievementsExplanations.length, (i) {
+                return Padding(
+                    padding: EdgeInsets.only(top: customPadding),
+                    child: SingleCardAchievement(
+                        headText: keysHealthAchievementsExplanations[i],
+                        statsText: valuesHealthAchievementsExplanations[i],
+                        widthCard: ScreenSizes.width(context),
+                        achievementCompleted: true
+                    ),
+                );
+              }),
+            ],
+          ),
         ),
+        // margin: EdgeInsets.all(customPadding),
       ),
     );
   }

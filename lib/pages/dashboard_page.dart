@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/journal_day_page.dart';
-import 'globals.dart';
+import '../globals.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.title});
@@ -40,23 +40,9 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             Container(
               margin: EdgeInsets.only(bottom: customPadding * 3),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CheckInPage(
-                                title: AppTitle.title,
-                              )));
-                },
-                style: AppStyles.largeButton(context),
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Text('Check In', style: AppStyles.labelStyle()),
-                  ),
-                ),
-              ),
+              child: LargeButton(buttonLabel: "Check In", onPressed: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
+              }),
             ),
             Container(
               margin: EdgeInsets.only(bottom: customPadding * 2),
@@ -66,7 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
             Padding(
               padding: EdgeInsets.only(bottom: 10.0),
-              child: SingleCard(
+              child: SingleCardStats(
                 headText: 'No cigarettes',
                 statsText: '2 months, 4 days',
                 widthCard: (ScreenSizes.width(context)),
@@ -76,13 +62,13 @@ class _DashboardPageState extends State<DashboardPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SingleCard(
+                SingleCardStats(
                     headText: 'You saved',
                     statsText: '€30',
                     widthCard:
                         ((ScreenSizes.width(context) / 2) - customPadding - 4),
                     colorCard: AppColors.blue),
-                SingleCard(
+                SingleCardStats(
                     headText: 'Your health',
                     statsText: 'insert text',
                     widthCard:
