@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stopit_frontend/pages/globals.dart';
+import 'package:stopit_frontend/globals.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +17,7 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
   bool _hasQuit = false;
   DateTime? _quitDate;
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
-  final List<bool> _isSelected = [false, false]; // Initial state of toggle buttons
+  final List<bool> _isSelected = [false, true]; // Initial state of toggle buttons
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -159,7 +159,9 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                 ],
                 const SizedBox(height: 24),
                 Center(
-                  child: ElevatedButton(
+                  child:
+                  LargeButton(
+                    buttonLabel: 'Sign Up',
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         Navigator.pushReplacement(
@@ -172,14 +174,6 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                         );
                       }
                     },
-                    style: AppStyles.largeButton(context),
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
                   ),
                 ),
               ],
