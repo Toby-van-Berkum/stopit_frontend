@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
+import 'package:stopit_frontend/pages/journal_day_page.dart';
 import 'globals.dart';
 
 class DashboardPage extends StatefulWidget {

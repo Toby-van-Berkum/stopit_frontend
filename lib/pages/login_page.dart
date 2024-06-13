@@ -28,65 +28,55 @@ class _LoginPageState extends State<LoginPage> {
         style: AppStyles.labelStyle()
       ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("Login", style: AppStyles.headerStyle(),),
-              const SizedBox(height: 50,),
-              Text(
-                "Email",
-                style: AppStyles.labelStyle()
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _emailController,
-                decoration: AppStyles.inputStyle("Email")
-              ),
-              const SizedBox(height: 16),
-              Text(
-                "Password",
-                style: AppStyles.labelStyle()
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: AppStyles.inputStyle("Password")
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardPage(title: AppTitle.title,)));
-                },
-                style: AppStyles.largeButton(context),
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Text(
-                      'Login',
-                      style: AppStyles.labelStyle()
-                    ),
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  const Text("Don't have an account yet?"),
-                  TextButton(
-                      onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: AppTitle.title,)));
-                  } ,
-                      child: const Text('Register', style: TextStyle(color: AppColors.primaryColor),))
-                ],
-              ),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: CustomBoxHeights.large,),
+            Text("Login", style: AppStyles.headerStyle(),),
+            const SizedBox(height: CustomBoxHeights.large,),
+            Text(
+              "Email",
+              style: AppStyles.labelStyle()
+            ),
+            const SizedBox(height: CustomBoxHeights.small),
+            TextField(
+              controller: _emailController,
+              decoration: AppStyles.inputStyle("Email")
+            ),
+            const SizedBox(height: CustomBoxHeights.medium),
+            Text(
+              "Password",
+              style: AppStyles.labelStyle()
+            ),
+            const SizedBox(height: CustomBoxHeights.small),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: AppStyles.inputStyle("Password")
+            ),
+            const SizedBox(height: CustomBoxHeights.large),
+            LargeButton(buttonLabel: "Login", onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashboardPage(title: AppTitle.title)),
+              );
+            },),
+            Row(
+              children: [
+                const Text("Don't have an account yet?"),
+                TextButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage(title: AppTitle.title,)));
+                } ,
+                    child: const Text('Register', style: TextStyle(color: AppColors.primaryColor),))
+              ],
+            ),
+          ],
         ),
       ),
     );
