@@ -11,14 +11,6 @@ class CheckInPage extends StatefulWidget {
   State<CheckInPage> createState() => _CheckInPageState();
 }
 
-// const List<String> difficultyLevels = <String>[
-//   "Very Hard",
-//   "Hard",
-//   "Medium",
-//   "Easy",
-//   "Very Easy"
-// ];
-
 const List<Widget> hasSmoked = <Widget>[
   Text("Yes"),
   Text("No")
@@ -33,7 +25,7 @@ const List<Widget> difficulty = <Widget>[
 ];
 
 class _CheckInPageState extends State<CheckInPage> {
-  final List<bool> _hasSmoked = <bool>[true, false];
+  final List<bool> _hasSmoked = <bool>[false, true];
   final List<bool> _difficulty = <bool>[false, false, true, false, false];
   bool vertical = false;
   final _formKey = GlobalKey<FormState>();
@@ -42,6 +34,7 @@ class _CheckInPageState extends State<CheckInPage> {
   String? _comment = "";
   bool? _hasSmokedValue = false;
   int? _difficultyValue = 2; // Default to "Medium"
+  late DateTime _currentDate;
 
   @override
   void initState() {
@@ -143,9 +136,11 @@ class _CheckInPageState extends State<CheckInPage> {
                   buttonLabel: "Submit",
                   onPressed: () {
                     // Save the values
-                    debugPrint('Comment: $_comment');
+                    _currentDate = DateTime.now();
                     debugPrint('Has smoked: $_hasSmokedValue');
+                    debugPrint('Comment: $_comment');
                     debugPrint('Difficulty: $_difficultyValue');
+                    debugPrint(_currentDate.toString());
 
                     Navigator.pushReplacement(
                       context,
