@@ -31,11 +31,11 @@ class _JournalDayPageState extends State<JournalDayPage> {
   //Used to retrieve data from api
   late Future<CheckupModel> futureCheckup;
 
-  @override
-  void initState() {
-    super.initState();
-    futureCheckup = fetchCheckupModel();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   futureCheckup = fetchCheckupModel( );
+  // }
 
   //TODO: make data readable for user
 
