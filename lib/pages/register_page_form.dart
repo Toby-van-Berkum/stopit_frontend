@@ -51,14 +51,14 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
               children: <Widget>[
                 Text("Register", style: AppStyles.headerStyle(),),
                 CustomSizedBox.large(),
-                Text(
+                const Text(
                   "Before getting started we just need to ask you a couple questions to setup your account.",
                 ),
                 const SizedBox(height: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("How many cigarettes do you smoke a day?"),
+                    const Text("How many cigarettes do you smoke a day?"),
                     const SizedBox(height: 8),
                     TextFormField(
                       keyboardType: TextInputType.number,
@@ -80,7 +80,7 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("How long have you been smoking (years)?"),
+                    const Text("How long have you been smoking (years)?"),
                     const SizedBox(height: 8),
                     TextFormField(
                       keyboardType: TextInputType.number,
