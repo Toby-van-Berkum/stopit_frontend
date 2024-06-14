@@ -1,6 +1,10 @@
 // lib/colors.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stopit_frontend/pages/checkin_page.dart';
+import 'package:stopit_frontend/pages/dashboard_page.dart';
+import 'package:stopit_frontend/pages/journal_page.dart';
+import 'package:stopit_frontend/pages/profile_page.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFFFFB580);
@@ -229,3 +233,11 @@ class LargeButton extends StatelessWidget {
     );
   }
 }
+
+const pages = [
+  const DashboardPage(title: AppTitle.title),
+  const JournalPage(title: AppTitle.title),
+  const ProfilePage(title: AppTitle.title)
+];
+
+int currentPageIndex = 0;

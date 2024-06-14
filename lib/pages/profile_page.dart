@@ -42,6 +42,26 @@ class _ProfilePageState extends State<ProfilePage> {
         healthAchievementsExplanations.values.toList();
 
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => pages[currentPageIndex]
+            ),
+          );
+        },
+        indicatorColor: Colors.orange,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+          NavigationDestination(icon: Icon(Icons.menu_book), label: "Journal"),
+          NavigationDestination(icon: Icon(Icons.person), label: "Profile")
+        ],
+      ),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(

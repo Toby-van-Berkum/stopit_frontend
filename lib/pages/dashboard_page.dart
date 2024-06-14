@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/profile_page.dart';
+import 'package:stopit_frontend/pages/register_page.dart';
 import '../globals.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -18,6 +19,26 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+          Navigator.push(
+            context,
+              MaterialPageRoute(
+                  builder: (context) => pages[currentPageIndex]
+              ),
+          );
+        },
+        indicatorColor: Colors.orange,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+          NavigationDestination(icon: Icon(Icons.menu_book), label: "Journal"),
+          NavigationDestination(icon: Icon(Icons.person), label: "Profile")
+        ],
+      ),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
@@ -86,7 +107,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ((ScreenSizes.width(context) / 2) - customPadding - 4),
                       colorCard: AppColors.green),
                 ],
-              )
+              ),
             ],
           ),
         ),
