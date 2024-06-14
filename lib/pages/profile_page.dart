@@ -14,6 +14,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final double customPadding = 16.0;
+  final int numberOfAchievements = 6; // dummy data, has to be changed
 
   @override
   Widget build(BuildContext context) {
@@ -56,23 +57,34 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(
-                    top: customPadding, bottom: customPadding * 2),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: customPadding,
-                      right: customPadding,
-                      bottom: customPadding),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Your achievements',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
+                padding: EdgeInsets.only(
+                    top: customPadding,
+                    right: customPadding,
+                    bottom: customPadding
+                ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Your achievements',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (int i = 0; i < numberOfAchievements; i++)
+                      SingleCardAchievement(
+                        headText:
+                        '1000', // text with achievements required
+                        widthCard: ScreenSizes.width(context) / 4,
+                        colorCard: AppColors.yellow,
+                      ),
+                  ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: customPadding * 2),
+                margin: EdgeInsets.only(top: customPadding, bottom: customPadding * 2),
                 child: Text('Keep going! It’ll only get easier'),
               ),
               Container(
@@ -91,27 +103,26 @@ class _ProfilePageState extends State<ProfilePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    SingleCardAchievement(
-                      headText: "20",
-                      widthCard: ScreenSizes.width(context) / 4,
-                      colorCard: AppColors.blue,
-                    ),
-                    SingleCardAchievement(
-                      headText: "20",
-                      widthCard: ScreenSizes.width(context) / 4,
-                      colorCard: AppColors.blue,
-                    ),
-                    SingleCardAchievement(
-                      headText: "20",
-                      widthCard: ScreenSizes.width(context) / 4,
-                      colorCard: AppColors.blue,
-                    ),
-                    SingleCardAchievement(
-                      headText: "20",
-                      widthCard: ScreenSizes.width(context) / 4,
-                      colorCard: AppColors.blue,
-                    ),
+                    for (int i = 0; i < numberOfAchievements; i++)
+                      SingleCardAchievement(
+                        headText:
+                            '1000', // number of euros not spend on cigarretes
+                        widthCard: ScreenSizes.width(context) / 4,
+                        colorCard: AppColors.blue,
+                      ),
                   ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                    top: customPadding * 4,
+                    right: customPadding,
+                ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Your health',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
               ...List.generate(keysHealthAchievementsExplanations.length, (i) {
