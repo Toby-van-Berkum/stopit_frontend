@@ -3,12 +3,12 @@ import 'dart:io';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-Future<CheckupModel> fetchCheckupModel() async {
+Future<CheckupModel> fetchCheckupModel(String authToken) async {
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup'),
     // Send authorization headers to the backend.
     headers: {
-      HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+      HttpHeaders.authorizationHeader: 'Basic' + authToken,
     },
   );
   final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
@@ -16,12 +16,12 @@ Future<CheckupModel> fetchCheckupModel() async {
   return CheckupModel.fromJson(responseJson);
 }
 
-Future<StatsModel> fetchStatsModel() async {
+Future<StatsModel> fetchStatsModel(String authToken) async {
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
     // Send authorization headers to the backend.
     headers: {
-      HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+      HttpHeaders.authorizationHeader: 'Basic' + authToken,
     },
   );
   final responseJson = jsonDecode(response.body) as Map<String, dynamic>;

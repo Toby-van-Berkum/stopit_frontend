@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
+import 'package:stopit_frontend/services/auth_service.dart';
 import '../globals.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  String _email = '';
-  String _password = '';
+  Future<AuthTokens>? _futureLogin;
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +72,13 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 CustomSizedBox.large(),
+
                 LargeButton(
                   buttonLabel: "Login",
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       setState(() {
-                        _email = _emailController.text;
-                        _password = _passwordController.text;
+                        _futureLogin = loginService(_emailController.text, _passwordController.text);
                       });
                       Navigator.pushReplacement(
                         context,
@@ -88,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                 ),
+
                 Row(
                   children: [
                     const Text("Don't have an account yet?"),

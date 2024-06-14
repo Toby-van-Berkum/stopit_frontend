@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/services/api_service.dart';
 import '../globals.dart';
 
 class JournalDayPage extends StatefulWidget {
@@ -21,8 +22,23 @@ const List<Widget> difficulty = <Widget>[
   Text("Easy"),
   Text("Very Easy")
 ];
+
+
 class _JournalDayPageState extends State<JournalDayPage> {
+
   bool vertical = false;
+
+  //Used to retrieve data from api
+  late Future<CheckupModel> futureCheckup;
+
+  @override
+  void initState() {
+    super.initState();
+    futureCheckup = fetchCheckupModel();
+  }
+
+  //TODO: make data readable for user
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
