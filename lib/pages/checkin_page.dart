@@ -11,13 +11,13 @@ class CheckInPage extends StatefulWidget {
   State<CheckInPage> createState() => _CheckInPageState();
 }
 
-const List<String> difficultyLevels = <String>[
-  "Very Hard",
-  "Hard",
-  "Medium",
-  "Easy",
-  "Very Easy"
-];
+// const List<String> difficultyLevels = <String>[
+//   "Very Hard",
+//   "Hard",
+//   "Medium",
+//   "Easy",
+//   "Very Easy"
+// ];
 
 const List<Widget> hasSmoked = <Widget>[
   Text("Yes"),
@@ -39,9 +39,25 @@ class _CheckInPageState extends State<CheckInPage> {
   final _formKey = GlobalKey<FormState>();
   final _commentController = TextEditingController();
 
-  String? _comment;
-  bool? _hasSmokedValue;
-  String? _difficultyValue;
+  String? _comment = "";
+  bool? _hasSmokedValue = false;
+  int? _difficultyValue = 2; // Default to "Medium"
+
+  @override
+  void initState() {
+    super.initState();
+    _commentController.addListener(() {
+      setState(() {
+        _comment = _commentController.text;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +125,7 @@ class _CheckInPageState extends State<CheckInPage> {
                       for (int i = 0; i < _difficulty.length; i++) {
                         _difficulty[i] = i == index;
                       }
-                      _difficultyValue = difficultyLevels[index];
+                      _difficultyValue = index;
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -130,7 +146,6 @@ class _CheckInPageState extends State<CheckInPage> {
                     debugPrint('Comment: $_comment');
                     debugPrint('Has smoked: $_hasSmokedValue');
                     debugPrint('Difficulty: $_difficultyValue');
-                    //TODO: Fix false value pass on (passes null when not null)
 
                     Navigator.pushReplacement(
                       context,
