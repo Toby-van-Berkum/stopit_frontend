@@ -27,7 +27,8 @@ class _JournalPageState extends State<JournalPage> {
         child: Column(
           children: [
             TableCalendar(
-              firstDay: DateTime.utc(2010, 10, 16),
+              // firstDay: DateTime.utc(2010, 10, 16),
+              firstDay: DateTime(DateTime.now().year - 3),
               lastDay: DateTime.now(),
               focusedDay: _focusedDay,
               calendarFormat: _calendarFormat,
