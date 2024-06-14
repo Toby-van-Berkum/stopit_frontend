@@ -17,20 +17,31 @@ class _JournalPageState extends State<JournalPage> {
   DateTime _firstDay = DateTime.now().subtract(Duration(days:30));
 
   @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title, style: AppStyles.labelStyle()),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text("Journal", style: AppStyles.headerStyle()),
             TableCalendar(
               firstDay: _firstDay,
               lastDay: DateTime.now(),
               focusedDay: _focusedDay,
               calendarFormat: _calendarFormat,
+              startingDayOfWeek: StartingDayOfWeek.monday,
               selectedDayPredicate: (day) {
                 return isSameDay(_selectedDay, day);
               },
@@ -51,13 +62,35 @@ class _JournalPageState extends State<JournalPage> {
                 _focusedDay = focusedDay;
               },
               calendarStyle: CalendarStyle(
-                selectedDecoration: BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
+                defaultTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
+                defaultDecoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(8)
                 ),
+                selectedTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
+                selectedDecoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  border: Border.all(color: AppColors.primaryColor),
+                  borderRadius: BorderRadius.circular(8)
+                ),
+                todayTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
                 todayDecoration: BoxDecoration(
-                  color: Colors.orange,
-                  shape: BoxShape.circle,
+                  color: AppColors.primaryColor,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                outsideTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
+                outsideDecoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                weekendTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
+                weekendDecoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 markersAlignment: Alignment.bottomCenter,
                 markersMaxCount: 1,
@@ -70,70 +103,12 @@ class _JournalPageState extends State<JournalPage> {
                 titleCentered: true,
               ),
               calendarBuilders: CalendarBuilders(
-                dowBuilder: (context, day) {
-                  if (day.weekday == DateTime.sunday) {
-                    return Center(
-                      child: Text(
-                        'Sun',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                  return null;
-                },
-                selectedBuilder: (context, date, _) {
-                  return Container(
-                    margin: const EdgeInsets.all(6.0),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      border: Border.all(color: AppColors.primaryColor),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${date.day}',
-                      style: TextStyle(color: AppColors.black),
-                    ),
-                  );
-                },
-                todayBuilder: (context, date, _) {
-                  return Container(
-                    margin: const EdgeInsets.all(6.0),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${date.day}',
-                      style: TextStyle(color: AppColors.black),
-                    ),
-                  );
-                },
                 markerBuilder: (context, date, events) {
                   if (events.isNotEmpty) {
                     return Positioned(
                       right: 1,
                       bottom: 1,
                       child: _buildEventsMarker(date, events),
-                    );
-                  }
-                  return null;
-                },
-                defaultBuilder: (context, date, _) {
-                  // Check if the date is on or after _firstDay and before or on DateTime.now()
-                  if (date.isAfter(_firstDay.subtract(Duration(days: 1))) && date.isBefore(DateTime.now())) {
-                    return Container(
-                      margin: const EdgeInsets.all(6.0),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${date.day}',
-                        style: TextStyle(color: AppColors.black),
-                      ),
                     );
                   }
                   return null;
