@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stopit_frontend/services/api_service.dart';
+import 'package:stopit_frontend/services/checkup_service.dart';
 import '../globals.dart';
 
 class JournalDayPage extends StatefulWidget {
