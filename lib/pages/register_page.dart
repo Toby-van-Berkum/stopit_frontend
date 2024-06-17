@@ -34,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('accessToken', tokens.accessToken);
         await prefs.setString('refreshToken', tokens.refreshToken);
+        await prefs.setString('email', _emailController.text);
 
         Navigator.pushReplacement(
           context,

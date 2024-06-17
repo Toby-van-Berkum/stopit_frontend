@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('accessToken', tokens.accessToken);
         await prefs.setString('refreshToken', tokens.refreshToken);
+        await prefs.setString('email', _emailController.text);
 
         Navigator.pushReplacement(
           context,
@@ -123,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SettingsPage(title: AppTitle.title),
+                            builder: (context) => const RegisterPage(title: AppTitle.title),
                           ),
                         );
                       },
