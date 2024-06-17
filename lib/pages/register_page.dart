@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/globals.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
 import 'package:stopit_frontend/pages/register_page_form.dart';
+import 'package:stopit_frontend/services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.title});
@@ -18,6 +20,35 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _register() async {
+    print(_firstNameController.text);
+    print(_lastNameController.text);
+    if (_formKey.currentState?.validate() ?? false) {
+      try {
+        AuthTokens tokens = await registerService(
+            _firstNameController.text,
+            _lastNameController.text,
+            _emailController.text,
+            _passwordController.text);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('accessToken', tokens.accessToken);
+        await prefs.setString('refreshToken', tokens.refreshToken);
+        await prefs.setString('email', _emailController.text);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const RegisterPageForm(title: AppTitle.title),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to register: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       // Navigate to next page or perform further actions
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterPageForm(title: AppTitle.title),
-                        ),
-                      );
+                      _register();
                     }
                   },
                 ),

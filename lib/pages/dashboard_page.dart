@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/profile_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
@@ -15,6 +16,19 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final double customPadding = 16.0;
+  //
+  // Future<bool> dateChecker() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   int? lastCheckup = prefs.getInt('lastCheckup');
+  //
+  //   if(DateTime.now().day == lastCheckup){
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
+
 
   @override
   void initState() {
@@ -69,7 +83,10 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: customPadding * 3),
-                child: LargeButton(buttonLabel: "Check In", onPressed: (){
+                child: LargeButton(buttonLabel: "Check In", onPressed: () /** async **/ {
+                  // if(await dateChecker()) {
+                  //   return null;
+                  // }
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
                 }),
               ),
