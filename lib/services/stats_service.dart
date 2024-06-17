@@ -83,7 +83,7 @@ Future<http.Response> updateStats(String authToken, String email, int currentStr
 Future<void> incrementStreak(String authToken, String email, int healthLevel) async {
   try {
     // Fetch the current stats
-    StatsModel stats = await fetchStats();
+    StatsTO stats = await fetchStats();
 
     // Increment the current streak
     int newStreak = stats.currentStreak + 1;
