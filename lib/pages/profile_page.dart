@@ -37,6 +37,11 @@ class _ProfilePageState extends State<ProfilePage> {
           'Your risk of coronary heart disease is close to that of a non-smoker.',
     };
 
+    List<String> statsText = [
+      "Your longest streak was",
+      "You haven't smoked for",
+    ];
+
     List<String> keysHealthAchievementsExplanations =
         healthAchievementsExplanations.keys.toList();
     List<String> valuesHealthAchievementsExplanations =
@@ -91,15 +96,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
+
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    for (int i = 0; i < numberOfAchievements; i++)
+                    for (int i = 0; i < statsText.length; i++)
                       SingleCardAchievement(
                         headText:
-                        '1000', // text with achievements required
-                        widthCard: ScreenSizes.width(context) / 4,
+                        '${statsText[i]}', // text with achievements required
+                        widthCard: ScreenSizes.width(context) / 2 - (customPadding * 2),
                         colorCard: AppColors.yellow,
                       ),
                   ],
@@ -128,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     for (int i = 0; i < numberOfAchievements; i++)
                       SingleCardAchievement(
                         headText:
-                            '1000', // number of euros not spend on cigarretes
+                            '${50 + (i * 50)}', // number of euros not spend on cigarretes
                         widthCard: ScreenSizes.width(context) / 4,
                         colorCard: AppColors.blue,
                       ),
