@@ -2,6 +2,28 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
+
+class AuthTokens{
+  final String accessToken;
+  final String refreshToken;
+
+  AuthTokens({required this.accessToken, required this.refreshToken});
+
+  factory AuthTokens.fromJson(Map<String, dynamic> json){
+    return switch (json) {
+      {
+      'access_token' : String accessToken,
+      'refresh_token' : String refreshToken
+      } =>
+          AuthTokens(
+              accessToken: accessToken,
+              refreshToken: refreshToken
+          ),
+      _ => throw const FormatException('Failed to get tokens'),
+    };
+  }
+}
+
 Future<AuthTokens> loginService(String email, String password) async {
   final response = await http.post(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/auth/authenticate'),
@@ -47,26 +69,5 @@ Future<AuthTokens> registerService(String firstName, String lastName, String ema
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
     throw Exception('Failed to register.');
-  }
-}
-
-class AuthTokens{
-  final String accessToken;
-  final String refreshToken;
-
-  AuthTokens({required this.accessToken, required this.refreshToken});
-
-  factory AuthTokens.fromJson(Map<String, dynamic> json){
-    return switch (json) {
-      {
-      'access_token' : String accessToken,
-      'refresh_token' : String refreshToken
-      } =>
-        AuthTokens(
-          accessToken: accessToken,
-          refreshToken: refreshToken
-        ),
-    _ => throw const FormatException('Failed to get tokens'),
-    };
   }
 }

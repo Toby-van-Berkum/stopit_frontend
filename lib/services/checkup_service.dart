@@ -71,7 +71,7 @@ Future<http.Response> createCheckup(String authToken, int id, bool hasSmoked, St
 }
 
 Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, String comment, int difficultyScale, DateTime date) {
-  return http.put(
+  return http.patch(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',

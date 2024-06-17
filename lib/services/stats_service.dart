@@ -71,7 +71,7 @@ Future<http.Response> createStats(String authToken, int id, double moneySaved, i
 }
 
 Future<http.Response> updateStats(String authToken, int id, double moneySaved, int currentStreak, int longestStreak, Enum healthLevel) {
-  return http.put(
+  return http.patch(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
