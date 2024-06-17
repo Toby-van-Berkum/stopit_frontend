@@ -35,6 +35,11 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
     return prefs.getString('authToken');
   }
 
+  Future<String?> _getEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email');
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -181,10 +186,10 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                   LargeButton(
                     buttonLabel: 'Sign Up',
                     onPressed: () async {
-
                       if (_formKey.currentState?.validate() ?? false) {
                         DateTime quitDate = _quitDate ?? DateTime(0);
                         var streak = daysBetween(quitDate, currentDay);
+                        createStats(_getAuthToken().toString(), _getEmail().toString(), streak, 0);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
