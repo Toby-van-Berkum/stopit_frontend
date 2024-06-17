@@ -17,6 +17,12 @@ class _DashboardPageState extends State<DashboardPage> {
   final double customPadding = 16.0;
 
   @override
+  void initState() {
+    currentPageIndex = 1;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
