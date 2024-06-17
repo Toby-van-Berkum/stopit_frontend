@@ -3,32 +3,28 @@ import 'dart:io';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-class StatsModel {
-  final int id;
+class StatsTO {
   final double moneySaved;
   final int currentStreak;
   final int longestStreak;
-  final Enum healthLevel;
+  final int healthLevel;
 
-  StatsModel({
-    required this.id,
+  StatsTO({
     required this.moneySaved,
     required this.currentStreak,
     required this.longestStreak,
     required this.healthLevel
   });
 
-  factory StatsModel.fromJson(Map<String, dynamic> json) {
+  factory StatsTO.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-      'id': int id,
-      'money saved': double moneySaved,
-      'current streak': int currentStreak,
-      'longest streak': int longestStreak,
-      'health level': Enum healthLevel
+      'moneySaved': double moneySaved,
+      'currentStreak': int currentStreak,
+      'longestStreak': int longestStreak,
+      'healthLevel': int healthLevel
       } =>
-          StatsModel(
-              id: id,
+          StatsTO(
               moneySaved: moneySaved,
               currentStreak: currentStreak,
               longestStreak: longestStreak,
@@ -39,7 +35,7 @@ class StatsModel {
   }
 }
 
-Future<StatsModel> fetchStats(String authToken, String email) async {
+Future<StatsTO> fetchStats(String authToken, String email) async {
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/'+ email),
     // Send authorization headers to the backend.
@@ -49,7 +45,7 @@ Future<StatsModel> fetchStats(String authToken, String email) async {
   );
   final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
 
-  return StatsModel.fromJson(responseJson);
+  return StatsTO.fromJson(responseJson);
 }
 
 
@@ -84,7 +80,7 @@ Future<http.Response> updateStats(String authToken, String email, int currentStr
 Future<void> incrementStreak(String authToken, String email, int healthLevel) async {
   try {
     // Fetch the current stats
-    StatsModel stats = await fetchStats(authToken, email);
+    StatsTO stats = await fetchStats(authToken, email);
 
     // Increment the current streak
     int newStreak = stats.currentStreak + 1;
