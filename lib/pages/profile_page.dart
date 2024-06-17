@@ -71,11 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
-        ), actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage(title: AppTitle.title),));
-          }, icon: Icon(Icons.settings, size: 38,))
-      ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
