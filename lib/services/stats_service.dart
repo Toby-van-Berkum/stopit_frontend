@@ -53,9 +53,9 @@ Future<StatsModel> fetchStats(String authToken, String email) async {
 }
 
 
-Future<http.Response> createStats(String authToken, String email, int currentStreak, int healthLevel) {
+Future<http.Response> createStats(String authToken, int currentStreak, int healthLevel) {
   return http.post(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
+      Uri.parse('https://stopit.onrender.com/stop-it/v1/user/users/stats'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
@@ -69,7 +69,7 @@ Future<http.Response> createStats(String authToken, String email, int currentStr
 
 Future<http.Response> updateStats(String authToken, String email, int currentStreak, int healthLevel) {
   return http.patch(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/'+email),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/settings_page.dart';
 import '../globals.dart';
 
@@ -13,9 +14,15 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+Future<String?> _getEmail() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('email');
+}
+
 class _ProfilePageState extends State<ProfilePage> {
   final double customPadding = 16.0;
   final int numberOfAchievements = 6; // dummy data, has to be changed
+
 
   @override
   Widget build(BuildContext context) {
