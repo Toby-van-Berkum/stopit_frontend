@@ -4,6 +4,8 @@ import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/profile_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
 import '../globals.dart';
+import 'package:stopit_frontend/services/stats_service.dart';
+import 'package:stopit_frontend/services/auth_service.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.title});
@@ -12,6 +14,16 @@ class DashboardPage extends StatefulWidget {
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
+}
+
+Future<String?> _getEmail() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('email');
+}
+
+Future<String?> _getAuthToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('authToken');
 }
 
 class _DashboardPageState extends State<DashboardPage> {
@@ -27,6 +39,14 @@ class _DashboardPageState extends State<DashboardPage> {
   //     return true;
   //   }
   // }
+
+  final DateTime currentDay = DateTime.now();
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
 
 
 
@@ -100,7 +120,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 padding: EdgeInsets.only(bottom: 10.0),
                 child: SingleCardStats(
                   headText: 'No cigarettes',
-                  statsText: '2 months, 4 days',
+                  statsText: '$fetchStats(_getAuthToken, _getEmail)',
                   widthCard: (ScreenSizes.width(context)),
                   colorCard: AppColors.yellow,
                 ),
