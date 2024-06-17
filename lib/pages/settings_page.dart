@@ -27,10 +27,10 @@ class _SettingsPageState extends State<SettingsPage> {
     Map<String, String> sourceLinks = {
       "stichtingstopbewust.nl": "https://stichtingstopbewust.nl/",
       "American Cancer Society":
-      "https://www.cancer.org/cancer/risk-prevention/tobacco/benefits-of-quitting-smoking-over-time.html",
+          "https://www.cancer.org/cancer/risk-prevention/tobacco/benefits-of-quitting-smoking-over-time.html",
       "ikstopnu.nl": "https://www.ikstopnu.nl/",
       "thuisarts.nl":
-      "https://www.thuisarts.nl/stoppen-met-roken/ik-wil-nu-stoppen-met-roken",
+          "https://www.thuisarts.nl/stoppen-met-roken/ik-wil-nu-stoppen-met-roken",
     };
 
     List<String> keysSourceLinks = sourceLinks.keys.toList();
@@ -125,6 +125,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   textAlign: TextAlign.start,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: customPadding * 2),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    "At Stop It, we believe that transparency is the cornerstone of building trust with our users. Our mission is to support you on your journey to quit smoking, and we are committed to providing clear, honest, and straightforward information about how our app works, what data we collect, and how we use it to enhance your experience."),
               ),
               ...List.generate(sourceLinks.length, (i) {
                 return Padding(
