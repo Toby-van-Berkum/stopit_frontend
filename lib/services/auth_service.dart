@@ -2,18 +2,17 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-
-class AuthTokens{
+class AuthTokens {
   final String accessToken;
   final String refreshToken;
 
   AuthTokens({required this.accessToken, required this.refreshToken});
 
-  factory AuthTokens.fromJson(Map<String, dynamic> json){
+  factory AuthTokens.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-      'access_token' : String accessToken,
-      'refresh_token' : String refreshToken
+      'access_token': String accessToken,
+      'refresh_token': String refreshToken
       } =>
           AuthTokens(
               accessToken: accessToken,
@@ -36,13 +35,21 @@ Future<AuthTokens> loginService(String email, String password) async {
     }),
   );
 
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
+  if (response.statusCode == 200) {
     return AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
+    throw Exception('Failed to login.');
+  }
+}
+
+Future<AuthTokens> logoutService() async {
+  final response = await http.post(
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/auth/logout'),
+  );
+
+  if (response.statusCode == 200) {
+    return AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
     throw Exception('Failed to login.');
   }
 }
@@ -62,12 +69,8 @@ Future<AuthTokens> registerService(String firstName, String lastName, String ema
     }),
   );
   if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
     return AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
     throw Exception('Failed to register.');
   }
 }

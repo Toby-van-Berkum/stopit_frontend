@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
 import 'package:stopit_frontend/services/auth_service.dart';
 import '../globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -19,8 +19,46 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<AuthTokens>? _futureLogin;
+  Future<void> _login() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      try {
+        AuthTokens tokens = await loginService(_emailController.text, _passwordController.text);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('accessToken', tokens.accessToken);
+        await prefs.setString('refreshToken', tokens.refreshToken);
 
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DashboardPage(title: AppTitle.title),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to login: $e')),
+        );
+      }
+    }
+  }
+
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? accessToken = prefs.getString('accessToken');
+    if (accessToken != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DashboardPage(title: AppTitle.title),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,24 +110,10 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 CustomSizedBox.large(),
-
                 LargeButton(
                   buttonLabel: "Login",
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      setState(() {
-                        _futureLogin = loginService(_emailController.text, _passwordController.text);
-                      });
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DashboardPage(title: AppTitle.title),
-                        ),
-                      );
-                    }
-                  },
+                  onPressed: _login,
                 ),
-
                 Row(
                   children: [
                     const Text("Don't have an account yet?"),
