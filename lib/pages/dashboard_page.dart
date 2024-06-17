@@ -48,8 +48,6 @@ class _DashboardPageState extends State<DashboardPage> {
     return (to.difference(from).inHours / 24).round();
   }
 
-
-
   @override
   void initState() {
     currentPageIndex = 0;
@@ -120,7 +118,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 padding: EdgeInsets.only(bottom: 10.0),
                 child: SingleCardStats(
                   headText: 'No cigarettes',
-                  statsText: '$fetchStats(_getAuthToken, _getEmail)',
+                  statsText: '$fetchStats(_getAuthToken(), _getEmail())',
                   widthCard: (ScreenSizes.width(context)),
                   colorCard: AppColors.yellow,
                 ),
@@ -130,7 +128,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 children: [
                   SingleCardStats(
                       headText: 'You saved',
-                      statsText: '€30',
+                      statsText: '${fetchStats().toString()}',
                       widthCard:
                           ((ScreenSizes.width(context) / 2) - customPadding - 4),
                       colorCard: AppColors.blue),
