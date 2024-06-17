@@ -16,6 +16,8 @@ class AppColors {
   static const Color green = Color(0xFFD7FFD6);
   static const Color yellow = Color(0xFFF3F4BC);
   static const Color black = Color(0xFF000000);
+  static const Color red = Color(0xFFc30010);
+  static const Color primaryColorDark = Color(0xFF33241a);
 
 // Add more colors as needed
 }
@@ -204,11 +206,15 @@ class CustomSizedBox {
 class LargeButton extends StatelessWidget {
   final String buttonLabel;
   final VoidCallback onPressed;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
 
   const LargeButton({
     super.key,
     required this.buttonLabel,
     required this.onPressed,
+    this.backgroundColor,
+    this.foregroundColor,
   });
 
   @override
@@ -216,7 +222,8 @@ class LargeButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryColor,
+        foregroundColor: foregroundColor ?? AppColors.primaryColorDark,
+        backgroundColor: backgroundColor ?? AppColors.primaryColor,
         minimumSize: Size(ScreenSizes.width(context), 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),

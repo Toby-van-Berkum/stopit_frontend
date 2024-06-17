@@ -97,6 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Padding(
                 padding: EdgeInsets.only(bottom: customPadding),
                 child: LargeButton(
+                    backgroundColor: AppColors.yellow,
                     buttonLabel: "Change password",
                     onPressed: () {
                       return null;
@@ -104,6 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               LargeButton(
                   buttonLabel: "Log out",
+                  backgroundColor: AppColors.red,
                   onPressed: () async {
                     await _clearPreferences();
                     Navigator.pushReplacement(
