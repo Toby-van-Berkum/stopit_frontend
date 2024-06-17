@@ -44,7 +44,7 @@ Future<CheckupModel> fetchCheckup(String authToken) async {
     Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup'),
     // Send authorization headers to the backend.
     headers: {
-      HttpHeaders.authorizationHeader: 'Basic' + authToken,
+      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
   );
   final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
@@ -58,7 +58,7 @@ Future<http.Response> createCheckup(String authToken, int id, bool hasSmoked, St
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      HttpHeaders.authorizationHeader: 'Basic' + authToken,
+      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
       'id': id.toString(),
@@ -75,7 +75,7 @@ Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, St
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      HttpHeaders.authorizationHeader: 'Basic' + authToken,
+      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
       'id': id.toString(),

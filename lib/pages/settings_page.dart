@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
+import 'package:stopit_frontend/services/auth_service.dart';
 import '../globals.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -16,9 +17,9 @@ class _SettingsPageState extends State<SettingsPage> {
   final double customPadding = 16.0;
   final int numberOfAchievements = 6; // dummy data, has to be changed
 
-  Future<void> _clearPreferences() async {
+  Future<String?> _getAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    return prefs.getString('authToken');
   }
 
   @override
@@ -80,7 +81,12 @@ class _SettingsPageState extends State<SettingsPage> {
               LargeButton(
                   buttonLabel: "Log out",
                   onPressed: () async {
-                    await _clearPreferences();
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    String? authToken = prefs.getString('accessToken');
+                    if (authToken != null) {
+                      await logoutService(authToken);
+                    }
+                    prefs.clear();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

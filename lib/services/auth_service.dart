@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+
+const OK = 200;
 
 class AuthTokens {
   final String accessToken;
@@ -35,23 +38,26 @@ Future<AuthTokens> loginService(String email, String password) async {
     }),
   );
 
-  if (response.statusCode == 200) {
+  print(response.body);
+  var token = AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  if (token.accessToken == "INVALID" || token.refreshToken == "INVALID")
+    throw Exception('The tokens are invalid!');
+
+  if (response.statusCode == OK ) {
     return AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to login.');
   }
 }
 
-Future<AuthTokens> logoutService() async {
-  final response = await http.post(
+Future<void> logoutService(String authToken) async {
+  await http.post(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/auth/logout'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
+    },
   );
-
-  if (response.statusCode == 200) {
-    return AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    throw Exception('Failed to login.');
-  }
 }
 
 Future<AuthTokens> registerService(String firstName, String lastName, String email, String password) async {
@@ -61,14 +67,14 @@ Future<AuthTokens> registerService(String firstName, String lastName, String ema
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      "firstName": firstName,
-      "lastName": lastName,
+      "firstname": firstName,
+      "lastname": lastName,
       "email": email,
       "password": password,
       "role": "USER"
     }),
   );
-  if (response.statusCode == 201) {
+  if (response.statusCode == OK) {
     return AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
     throw Exception('Failed to register.');
