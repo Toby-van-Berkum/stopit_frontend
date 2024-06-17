@@ -16,12 +16,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final double customPadding = 16.0;
   final int numberOfAchievements = 6; // dummy data, has to be changed
-  List<String> source_links = [
-    "https://stichtingstopbewust.nl/",
-    "https://www.cancer.org/cancer/risk-prevention/tobacco/benefits-of-quitting-smoking-over-time.html",
-    "https://www.ikstopnu.nl/",
-    "https://www.thuisarts.nl/stoppen-met-roken/ik-wil-nu-stoppen-met-roken",
-  ];
 
   Future<void> _clearPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -30,6 +24,18 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> sourceLinks = {
+      "stichtingstopbewust.nl": "https://stichtingstopbewust.nl/",
+      "American Cancer Society":
+      "https://www.cancer.org/cancer/risk-prevention/tobacco/benefits-of-quitting-smoking-over-time.html",
+      "ikstopnu.nl": "https://www.ikstopnu.nl/",
+      "thuisarts.nl":
+      "https://www.thuisarts.nl/stoppen-met-roken/ik-wil-nu-stoppen-met-roken",
+    };
+
+    List<String> keysSourceLinks = sourceLinks.keys.toList();
+    List<String> valuesSourceLinks = sourceLinks.values.toList();
+
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -44,10 +50,22 @@ class _SettingsPageState extends State<SettingsPage> {
         indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: "Journal"),
-          NavigationDestination(icon: Icon(Icons.person_outlined), selectedIcon: Icon(Icons.person), label: "Profile"),
-          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: "Settings")
+          NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: "Home"),
+          NavigationDestination(
+              icon: Icon(Icons.menu_book_outlined),
+              selectedIcon: Icon(Icons.menu_book),
+              label: "Journal"),
+          NavigationDestination(
+              icon: Icon(Icons.person_outlined),
+              selectedIcon: Icon(Icons.person),
+              label: "Profile"),
+          NavigationDestination(
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: "Settings")
         ],
       ),
       appBar: AppBar(
@@ -91,7 +109,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginPage(title: AppTitle.title),
+                        builder: (context) =>
+                            const LoginPage(title: AppTitle.title),
                       ),
                     );
                   }),
@@ -107,6 +126,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
+              ...List.generate(sourceLinks.length, (i) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: customPadding),
+                  child: LargeButton(
+                      buttonLabel: keysSourceLinks[i],
+                      onPressed: () {
+                        _launchUrl(valuesSourceLinks[i]);
+                      }),
+                );
+              }),
             ],
           ),
         ),
@@ -122,5 +151,3 @@ Future<void> _launchUrl(String url) async {
     throw Exception('Could not launch $_url');
   }
 }
-
-
