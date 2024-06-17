@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
 import 'package:stopit_frontend/services/auth_service.dart';
@@ -16,6 +17,12 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final double customPadding = 16.0;
   final int numberOfAchievements = 6; // dummy data, has to be changed
+  List<String> source_links = [
+    "https://stichtingstopbewust.nl/",
+    "https://www.cancer.org/cancer/risk-prevention/tobacco/benefits-of-quitting-smoking-over-time.html",
+    "https://www.ikstopnu.nl/",
+    "https://www.thuisarts.nl/stoppen-met-roken/ik-wil-nu-stoppen-met-roken",
+  ];
 
   Future<String?> _getAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -114,3 +121,12 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
+
+Future<void> _launchUrl(String url) async {
+  final _url = Uri.parse(url);
+  if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch $_url');
+  }
+}
+
+
