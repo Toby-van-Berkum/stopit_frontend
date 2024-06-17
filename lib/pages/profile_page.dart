@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:stopit_frontend/pages/settings_page.dart';
 import '../globals.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ), actions: [
           IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(title: AppTitle.title),));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage(title: AppTitle.title),));
           }, icon: Icon(Icons.settings, size: 38,))
       ],
       ),
