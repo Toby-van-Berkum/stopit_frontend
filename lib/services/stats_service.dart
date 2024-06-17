@@ -39,9 +39,9 @@ class StatsModel {
   }
 }
 
-Future<StatsModel> fetchStats(String authToken) async {
+Future<StatsModel> fetchStats(String authToken, String email) async {
   final response = await http.get(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/email'),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/'+ email),
     // Send authorization headers to the backend.
     headers: {
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
@@ -67,7 +67,7 @@ Future<http.Response> createStats(String authToken, String email, int currentStr
   );
 }
 
-Future<http.Response> update(String authToken, String email, int currentStreak, int healthLevel) {
+Future<http.Response> updateStats(String authToken, String email, int currentStreak, int healthLevel) {
   return http.patch(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
     headers: <String, String>{
