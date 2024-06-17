@@ -59,7 +59,6 @@ class AppStyles {
   static TextStyle headerStyle() {
     return const TextStyle(fontSize: 45);
   }
-
 }
 
 class SingleCardStats extends StatelessWidget {
@@ -82,7 +81,8 @@ class SingleCardStats extends StatelessWidget {
     return Container(
       width: widthCard,
       // height: 40,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorCard),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: colorCard),
 
       child: Column(
         children: [
@@ -112,27 +112,30 @@ class SingleCardAchievementExplanation extends StatelessWidget {
   final double widthCard;
   final bool achievementCompleted;
 
-  const SingleCardAchievementExplanation(
-      {super.key,
-        required this.headText,
-        required this.statsText,
-        required this.widthCard,
-        required this.achievementCompleted,
-      });
+  const SingleCardAchievementExplanation({
+    super.key,
+    required this.headText,
+    required this.statsText,
+    required this.widthCard,
+    required this.achievementCompleted,
+  });
 
   @override
   Widget build(BuildContext context) {
     const double paddingCard = 18.0;
-    final Color colorCard = achievementCompleted ? AppColors.green : AppColors.yellow;
+    final Color colorCard =
+        achievementCompleted ? AppColors.green : AppColors.yellow;
 
     return Container(
       width: widthCard,
       // height: 40,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorCard),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: colorCard),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: paddingCard, left: paddingCard, right: paddingCard),
+            padding: EdgeInsets.only(
+                top: paddingCard, left: paddingCard, right: paddingCard),
             alignment: Alignment.centerLeft,
             child: Text(
               headText,
@@ -156,12 +159,12 @@ class SingleCardAchievement extends StatelessWidget {
   final double widthCard;
   final Color colorCard;
 
-  const SingleCardAchievement(
-      {super.key,
-        required this.headText,
-        required this.widthCard,
-        required this.colorCard,
-      });
+  const SingleCardAchievement({
+    super.key,
+    required this.headText,
+    required this.widthCard,
+    required this.colorCard,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -170,17 +173,23 @@ class SingleCardAchievement extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: paddingCard),
       width: widthCard,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: colorCard),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: colorCard),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: (ScreenSizes.width(context) / 8), horizontal: 0.0),
-            alignment: Alignment.center,
-            child: Text(
-              headText,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
+              padding: EdgeInsets.symmetric(
+                  vertical: (ScreenSizes.width(context) / 8), horizontal: 0.0),
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Text(
+                    headText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  )
+                ],
+              )
           ),
         ],
       ),
@@ -192,6 +201,7 @@ class CustomSizedBox {
   static SizedBox small() {
     return const SizedBox(height: 8);
   }
+
   static SizedBox medium() {
     return const SizedBox(height: 16);
   }
@@ -232,10 +242,9 @@ class LargeButton extends StatelessWidget {
       child: Align(
         child: Padding(
           padding: const EdgeInsets.only(left: 16.0),
-          child: Text(
-            buttonLabel,
-            style: AppStyles.labelStyle() // Replace with your label style
-          ),
+          child: Text(buttonLabel,
+              style: AppStyles.labelStyle() // Replace with your label style
+              ),
         ),
       ),
     );
