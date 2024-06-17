@@ -19,6 +19,8 @@ class _JournalPageState extends State<JournalPage> {
   DateTime _firstDay = DateTime.now().subtract(Duration(days: 30));
   List<CheckupTransferObject> _checkupList = []; // List to store CheckupModel objects
   String _selectedComment = ''; // Variable to store the selected comment
+  bool _hasSmokedToday = false;
+  String _dayDifficulty = '';
 
   @override
   void initState() {
@@ -51,8 +53,8 @@ class _JournalPageState extends State<JournalPage> {
     setState(() {
       _selectedDay = selectedDay;
       _focusedDay = focusedDay;
-      // Find the checkup corresponding to the selected day and update the comment
-      _selectedComment = _checkupList.firstWhere(
+      // Find the checkup corresponding to the selected day and update the comment, hasSmokedToday, and dayDifficulty
+      CheckupTransferObject checkup = _checkupList.firstWhere(
             (checkup) => isSameDay(checkup.date, selectedDay),
         orElse: () => CheckupTransferObject(
           hasSmoked: false,
@@ -60,7 +62,11 @@ class _JournalPageState extends State<JournalPage> {
           difficultyScale: "MEDIUM",
           date: DateTime.now(),
         ),
-      ).comment;
+      );
+
+      _selectedComment = checkup.comment;
+      _hasSmokedToday = checkup.hasSmoked;
+      _dayDifficulty = checkup.difficultyScale;
     });
   }
 
@@ -192,6 +198,17 @@ class _JournalPageState extends State<JournalPage> {
               ),
             ),
             SizedBox(height: 20),
+            Row(
+              children: [
+                SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: DecoratedBox(decoration: BoxDecoration(
+                    color: _hasSmokedToday ? Colors.red : Colors.green),
+                  )),
+                Text(_dayDifficulty)
+              ],
+            ),
             Text(_selectedComment),
           ],
         ),
