@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/register_page.dart';
+import 'package:stopit_frontend/pages/settings_page.dart';
 import 'package:stopit_frontend/services/auth_service.dart';
 import '../globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -122,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const RegisterPage(title: AppTitle.title),
+                            builder: (context) => const SettingsPage(title: AppTitle.title),
                           ),
                         );
                       },
