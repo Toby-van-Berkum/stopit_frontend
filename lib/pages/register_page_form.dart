@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/globals.dart';
 import 'package:stopit_frontend/pages/login_page.dart';
 import 'package:intl/intl.dart';
+import 'package:stopit_frontend/services/stats_service.dart';
 
 class RegisterPageForm extends StatefulWidget {
   const RegisterPageForm({super.key, required this.title});
@@ -14,10 +16,24 @@ class RegisterPageForm extends StatefulWidget {
 
 class _RegisterPageFormState extends State<RegisterPageForm> {
   final _formKey = GlobalKey<FormState>();
+
   bool _hasQuit = false;
+
   DateTime? _quitDate;
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
   final List<bool> _isSelected = [false, true]; // Initial state of toggle buttons
+  final DateTime currentDay = DateTime.now();
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
+  Future<String?> _getAuthToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('authToken');
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -164,8 +180,11 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                   child:
                   LargeButton(
                     buttonLabel: 'Sign Up',
-                    onPressed: () {
+                    onPressed: () async {
+
                       if (_formKey.currentState?.validate() ?? false) {
+                        DateTime quitDate = _quitDate ?? DateTime(0);
+                        var streak = daysBetween(quitDate, currentDay);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
