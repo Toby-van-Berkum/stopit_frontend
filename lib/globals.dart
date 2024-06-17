@@ -5,6 +5,7 @@ import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/journal_page.dart';
 import 'package:stopit_frontend/pages/profile_page.dart';
+import 'package:stopit_frontend/pages/settings_page.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFFFFB580);
@@ -237,7 +238,8 @@ class LargeButton extends StatelessWidget {
 const pages = [
   const DashboardPage(title: AppTitle.title),
   const JournalPage(title: AppTitle.title),
-  const ProfilePage(title: AppTitle.title)
+  const ProfilePage(title: AppTitle.title),
+  const SettingsPage(title: AppTitle.title)
 ];
 
 int currentPageIndex = 0;
