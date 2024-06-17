@@ -3,54 +3,50 @@ import 'dart:io';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-class CheckupModel {
-  final int id;
+class CheckupTransferObject {
   final bool hasSmoked;
   final String comment;
-  final int difficultyScale;
+  final String difficultyScale;
   final DateTime date;
 
-  CheckupModel({
-    required this.id,
+  CheckupTransferObject({
     required this.hasSmoked,
     required this.comment,
     required this.difficultyScale,
     required this.date
   });
 
-  factory CheckupModel.fromJson(Map<String, dynamic> json) {
+  factory CheckupTransferObject.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-      'id': int id,
       'hasSmoked': bool hasSmoked,
       'comment': String comment,
-      'difficultyScale': int difficultyScale,
-      'time': DateTime date
+      'difficultyScale': String difficultyScale,
+      'date': String date
       } =>
-        CheckupModel(
-          id: id,
-          hasSmoked: hasSmoked,
-          comment: comment,
-          difficultyScale: difficultyScale,
-          date: date
-        ),
+          CheckupTransferObject(
+              hasSmoked: hasSmoked,
+              comment: comment,
+              difficultyScale: difficultyScale,
+              date: DateTime.parse(date)
+          ),
       _ => throw const FormatException('Failed to load day.'),
     };
   }
 }
 
-Future<CheckupModel> fetchCheckup(String authToken, String email) async {
+Future<List<CheckupTransferObject>> fetchCheckup(String authToken, String email) async {
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup/' + email),
-    // Send authorization headers to the backend.
     headers: {
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
   );
-  final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
 
-  return CheckupModel.fromJson(responseJson);
+  final List<dynamic> responseJson = jsonDecode(response.body);
+  return responseJson.map((json) => CheckupTransferObject.fromJson(json)).toList();
 }
+
 
 
 Future<http.Response> createCheckup(String authToken, bool hasSmoked, String comment, int difficultyScale, DateTime date) {

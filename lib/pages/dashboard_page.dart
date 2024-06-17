@@ -32,7 +32,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
-    currentPageIndex = 1;
+    currentPageIndex = 0;
     super.initState();
   }
 

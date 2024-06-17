@@ -29,7 +29,7 @@ class _JournalDayPageState extends State<JournalDayPage> {
   bool vertical = false;
 
   //Used to retrieve data from api
-  late Future<CheckupModel> futureCheckup;
+  late Future<CheckupTransferObject> futureCheckup;
 
   // @override
   // void initState() {

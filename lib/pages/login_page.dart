@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         await prefs.setString('accessToken', tokens.accessToken);
         await prefs.setString('refreshToken', tokens.refreshToken);
         await prefs.setString('email', _emailController.text);
+        print(_emailController.text);
 
         Navigator.pushReplacement(
           context,

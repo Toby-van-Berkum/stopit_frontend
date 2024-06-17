@@ -38,7 +38,6 @@ Future<AuthTokens> loginService(String email, String password) async {
     }),
   );
 
-  print(response.body);
   var token = AuthTokens.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   if (token.accessToken == "INVALID" || token.refreshToken == "INVALID")
     throw Exception('The tokens are invalid!');
