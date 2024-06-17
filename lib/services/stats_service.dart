@@ -41,7 +41,7 @@ class StatsModel {
 
 Future<StatsModel> fetchStats(String authToken) async {
   final response = await http.get(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/email'),
     // Send authorization headers to the backend.
     headers: {
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
@@ -53,35 +53,29 @@ Future<StatsModel> fetchStats(String authToken) async {
 }
 
 
-Future<http.Response> createStats(String authToken, int id, double moneySaved, int currentStreak, int longestStreak, Enum healthLevel) {
+Future<http.Response> createStats(String authToken, String email, int currentStreak, Enum healthLevel) {
   return http.post(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
-      'id': id.toString(),
-      'money saved': moneySaved.toString(),
       'current streak': currentStreak.toString(),
-      'longest streak': longestStreak.toString(),
       'health level': healthLevel.toString()
     }),
   );
 }
 
-Future<http.Response> updateStats(String authToken, int id, double moneySaved, int currentStreak, int longestStreak, Enum healthLevel) {
+Future<http.Response> update(String authToken, String email, int currentStreak, Enum healthLevel) {
   return http.patch(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
-      'id': id.toString(),
-      'money saved': moneySaved.toString(),
       'current streak': currentStreak.toString(),
-      'longest streak': longestStreak.toString(),
       'health level': healthLevel.toString()
     }),
   );
