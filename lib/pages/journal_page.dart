@@ -139,6 +139,7 @@ class _JournalPageState extends State<JournalPage> {
                 },
               ),
             ),
+          Text("Oelewapper"),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
+import 'package:stopit_frontend/services/checkup_service.dart';
 import '../globals.dart';
 
 class CheckInPage extends StatefulWidget {
@@ -134,14 +136,17 @@ class _CheckInPageState extends State<CheckInPage> {
                 CustomSizedBox.large(),
                 LargeButton(
                   buttonLabel: "Submit",
-                  onPressed: () {
-                    // Save the values
+                  onPressed: () async {
                     _currentDate = DateTime.now();
-                    debugPrint('Has smoked: $_hasSmokedValue');
-                    debugPrint('Comment: $_comment');
-                    debugPrint('Difficulty: $_difficultyValue');
-                    debugPrint(_currentDate.toString());
-
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    await prefs.setInt('lastCheckup', _currentDate.day);
+                    String? authToken = prefs.getString('accessToken');
+                    createCheckup(
+                        authToken!,
+                        _hasSmokedValue!,
+                        _commentController.text,
+                        _difficultyValue!,
+                        _currentDate);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
