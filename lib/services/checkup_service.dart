@@ -49,7 +49,7 @@ Future<List<CheckupTransferObject>> fetchCheckup(String authToken, String email)
 
 
 
-Future<http.Response> createCheckup(String authToken, bool hasSmoked, String comment, int difficultyScale, DateTime date) {
+Future<http.Response> createCheckup(String authToken, bool hasSmoked, String comment, String difficultyScale, DateTime date) {
   return http.post(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/user/users/checkup'),
     headers: <String, String>{
@@ -59,13 +59,13 @@ Future<http.Response> createCheckup(String authToken, bool hasSmoked, String com
     body: jsonEncode(<String, String>{
       'hasSmoked': hasSmoked.toString(),
       'comment': comment,
-      'difficultyScale': difficultyScale.toString(),
+      'difficultyScale': difficultyScale,
       'date': date.toIso8601String()
     }),
   );
 }
 
-Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, String comment, int difficultyScale, DateTime date) {
+Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, String comment, String difficultyScale, DateTime date) {
   return http.patch(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/user/users/checkup'),
     headers: <String, String>{
@@ -76,7 +76,7 @@ Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, St
       'id': id.toString(),
       'hasSmoked': hasSmoked.toString(),
       'comment': comment,
-      'difficultyScale': difficultyScale.toString(),
+      'difficultyScale': difficultyScale,
       'date': date.toIso8601String()
     }),
   );

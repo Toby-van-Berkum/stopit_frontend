@@ -13,6 +13,14 @@ class CheckInPage extends StatefulWidget {
   State<CheckInPage> createState() => _CheckInPageState();
 }
 
+const List<String> difficultyScale = <String>[
+  'VERY_HARD',
+  'HARD',
+  'MEDIUM',
+  'EASY',
+  'VERY_EASY'
+];
+
 const List<Widget> hasSmoked = <Widget>[
   Text("Yes"),
   Text("No")
@@ -145,7 +153,7 @@ class _CheckInPageState extends State<CheckInPage> {
                         authToken!,
                         _hasSmokedValue!,
                         _commentController.text,
-                        _difficultyValue!,
+                        difficultyScale[_difficultyValue!],
                         _currentDate);
                     Navigator.pushReplacement(
                       context,
