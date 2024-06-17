@@ -55,29 +55,67 @@ Future<StatsModel> fetchStats(String authToken, String email) async {
 
 Future<http.Response> createStats(String authToken, String email, int currentStreak, int healthLevel) {
   return http.post(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/'+email),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
-      'current streak': currentStreak.toString(),
-      'health level': healthLevel.toString()
+      'currentStreak': currentStreak.toString(),
+      'healthLevel': healthLevel.toString()
     }),
   );
 }
 
 Future<http.Response> updateStats(String authToken, String email, int currentStreak, int healthLevel) {
   return http.patch(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats'+email),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/'+email),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
-      'current streak': currentStreak.toString(),
-      'health level': healthLevel.toString()
+      'currentStreak': currentStreak.toString(),
+      'healthLevel': healthLevel.toString()
     }),
   );
 }
 
+Future<void> incrementStreak(String authToken, String email, int healthLevel) async {
+  try {
+    // Fetch the current stats
+    StatsModel stats = await fetchStats(authToken, email);
+
+    // Increment the current streak
+    int newStreak = stats.currentStreak + 1;
+
+    // Update the stats with the new streak value
+    http.Response response = await updateStats(authToken, email, newStreak, healthLevel);
+
+    if (response.statusCode == 200) {
+      print("Streak updated successfully");
+    } else {
+      print("Failed to update streak: ${response.body}");
+    }
+  } catch (e) {
+    print("Error: $e");
+  }
+}
+
+Future<void> resetStreak(String authToken, String email, int healthLevel) async {
+  try {
+    // Reset the current streak
+    int newStreak = 0;
+
+    // Update the stats with the new streak value
+    http.Response response = await updateStats(authToken, email, newStreak, healthLevel);
+
+    if (response.statusCode == 200) {
+      print("Streak updated successfully");
+    } else {
+      print("Failed to update streak: ${response.body}");
+    }
+  } catch (e) {
+    print("Error: $e");
+  }
+}

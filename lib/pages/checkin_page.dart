@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/services/checkup_service.dart';
+import 'package:stopit_frontend/services/stats_service.dart';
 import '../globals.dart';
 
 class CheckInPage extends StatefulWidget {
@@ -149,12 +150,21 @@ class _CheckInPageState extends State<CheckInPage> {
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     await prefs.setInt('lastCheckup', _currentDate.day);
                     String? authToken = prefs.getString('accessToken');
+                    String? email = prefs.getString('email');
+
                     createCheckup(
                         authToken!,
                         _hasSmokedValue!,
                         _commentController.text,
                         difficultyScale[_difficultyValue!],
                         _currentDate);
+                    if(_hasSmokedValue!){
+                      resetStreak(authToken, email!, 0);
+                      debugPrint('reset');
+                    } else {
+                      incrementStreak(authToken, email!, 0);
+                      debugPrint('increment');
+                    }
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
