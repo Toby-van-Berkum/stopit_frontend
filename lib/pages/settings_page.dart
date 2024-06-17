@@ -1,7 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stopit_frontend/pages/login_page.dart';
 import '../globals.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -23,6 +23,11 @@ class _SettingsPageState extends State<SettingsPage> {
     "https://www.thuisarts.nl/stoppen-met-roken/ik-wil-nu-stoppen-met-roken",
   ];
 
+  Future<void> _clearPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +44,10 @@ class _SettingsPageState extends State<SettingsPage> {
         indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.menu_book), label: "Journal"),
-          NavigationDestination(icon: Icon(Icons.person), label: "Profile")
+          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: "Home"),
+          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: "Journal"),
+          NavigationDestination(icon: Icon(Icons.person_outlined), selectedIcon: Icon(Icons.person), label: "Profile"),
+          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: "Settings")
         ],
       ),
       appBar: AppBar(
@@ -80,8 +86,14 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               LargeButton(
                   buttonLabel: "Log out",
-                  onPressed: () {
-                    return null;
+                  onPressed: () async {
+                    await _clearPreferences();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(title: AppTitle.title),
+                      ),
+                    );
                   }),
               Container(
                 padding: EdgeInsets.only(
@@ -95,14 +107,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
-              ...List.generate(source_links.length, (i) {
-                return LargeButton(
-                    buttonLabel: 'source',
-                    onPressed: () {
-                      _launchUrl(
-                          source_links[i]);
-                    });
-              }),
             ],
           ),
         ),

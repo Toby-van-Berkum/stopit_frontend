@@ -58,9 +58,10 @@ class _ProfilePageState extends State<ProfilePage> {
         indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.menu_book), label: "Journal"),
-          NavigationDestination(icon: Icon(Icons.person), label: "Profile")
+          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: "Home"),
+          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: "Journal"),
+          NavigationDestination(icon: Icon(Icons.person_outlined), selectedIcon: Icon(Icons.person), label: "Profile"),
+          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: "Settings")
         ],
       ),
       appBar: AppBar(
@@ -70,11 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
-        ), actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage(title: AppTitle.title),));
-          }, icon: Icon(Icons.settings, size: 38,))
-      ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
