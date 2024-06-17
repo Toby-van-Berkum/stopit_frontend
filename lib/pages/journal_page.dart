@@ -30,14 +30,14 @@ class _JournalPageState extends State<JournalPage> {
           setState(() {
             currentPageIndex = index;
           });
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => pages[currentPageIndex]
             ),
           );
         },
-        indicatorColor: Colors.orange,
+        indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.home), label: "Home"),
@@ -47,7 +47,10 @@ class _JournalPageState extends State<JournalPage> {
       ),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title, style: AppStyles.labelStyle()),
+        title: Text(widget.title, style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

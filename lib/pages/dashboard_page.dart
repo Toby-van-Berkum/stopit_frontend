@@ -24,14 +24,14 @@ class _DashboardPageState extends State<DashboardPage> {
           setState(() {
             currentPageIndex = index;
           });
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
               MaterialPageRoute(
                   builder: (context) => pages[currentPageIndex]
               ),
           );
         },
-        indicatorColor: Colors.orange,
+        indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.home), label: "Home"),
@@ -47,16 +47,6 @@ class _DashboardPageState extends State<DashboardPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            tooltip: 'View Profile',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(title: AppTitle.title,)));
-            },
-            iconSize: 48,
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
