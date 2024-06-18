@@ -64,20 +64,3 @@ Future<http.Response> createCheckup(String authToken, bool hasSmoked, String com
     }),
   );
 }
-
-Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, String comment, String difficultyScale, DateTime date) {
-  return http.patch(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/user/users/checkup'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
-    },
-    body: jsonEncode(<String, String>{
-      'id': id.toString(),
-      'hasSmoked': hasSmoked.toString(),
-      'comment': comment,
-      'difficultyScale': difficultyScale,
-      'date': date.toIso8601String()
-    }),
-  );
-}
