@@ -15,16 +15,6 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-Future<String?> _getEmail() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('email');
-}
-
-Future<String?> _getAuthToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('accessToken');
-}
-
 class _DashboardPageState extends State<DashboardPage> {
   final double customPadding = 16.0;
   String? _userName;
@@ -139,7 +129,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       'but also life to your years”',
                 ),
               ),
-
               FutureBuilder<StatsTO>(
                 future: fetchStats(),
                 builder: (context, snapshot) {

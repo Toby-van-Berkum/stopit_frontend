@@ -18,11 +18,6 @@ class _SettingsPageState extends State<SettingsPage> {
   final double customPadding = 16.0;
   final int numberOfAchievements = 6; // dummy data, has to be changed
 
-  Future<String?> _getAuthToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('accessToken');
-  }
-
   @override
   Widget build(BuildContext context) {
     Map<String, String> sourceLinks = {
