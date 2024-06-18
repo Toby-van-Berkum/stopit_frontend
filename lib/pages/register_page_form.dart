@@ -189,7 +189,7 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                       if (_formKey.currentState?.validate() ?? false) {
                         DateTime quitDate = _quitDate ?? DateTime(0);
                         var streak = daysBetween(quitDate, currentDay);
-                        createStats(_getAuthToken().toString(), streak, 0);
+                        createStats(_getAuthToken().toString(), streak, "UNHEALTHY");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

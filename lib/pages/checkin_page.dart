@@ -151,6 +151,8 @@ class _CheckInPageState extends State<CheckInPage> {
                     await prefs.setInt('lastCheckup', _currentDate.day);
                     String? authToken = prefs.getString('accessToken');
                     String? email = prefs.getString('email');
+                    debugPrint(email);
+                    debugPrint(authToken);
 
                     createCheckup(
                         authToken!,
@@ -159,10 +161,10 @@ class _CheckInPageState extends State<CheckInPage> {
                         difficultyScale[_difficultyValue!],
                         _currentDate);
                     if(_hasSmokedValue!){
-                      resetStreak(authToken, email!, 0);
+                      resetStreak(authToken, email!, "UNHEALTHY");
                       debugPrint('reset');
                     } else {
-                      incrementStreak(authToken, email!, 0);
+                      incrementStreak(authToken, email!, "UNHEALTHY");
                       debugPrint('increment');
                     }
                     Navigator.pushReplacement(
