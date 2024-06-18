@@ -18,37 +18,39 @@ class StatsTO {
   });
 
   factory StatsTO.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-      'moneySaved': double moneySaved,
-      'currentStreak': int currentStreak,
-      'longestStreak': int longestStreak,
-      'healthLevel': int healthLevel
-      } =>
-          StatsTO(
-              moneySaved: moneySaved,
-              currentStreak: currentStreak,
-              longestStreak: longestStreak,
-              healthLevel: healthLevel
-          ),
-      _ => throw const FormatException('Failed to load stats.'),
-    };
+    return StatsTO(
+      moneySaved: json['moneySaved'].toDouble(),
+      currentStreak: json['currentStreak'],
+      longestStreak: json['longestStreak'],
+      healthLevel: json['healthLevel'],
+    );
   }
 }
 
 Future<StatsTO> fetchStats() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(prefs.getString("email")!);
+  String? email = prefs.getString("email");
+  String? authToken = prefs.getString("accessToken");
+
+  if (email == null) {
+    throw Exception('Email is null');
+  } else if (authToken == null) {
+    throw Exception('AuthToken is null');
+  }
+
   final response = await http.get(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/'+ prefs.getString("email")!),
-    // Send authorization headers to the backend.
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/$email'),
     headers: {
-      HttpHeaders.authorizationHeader: 'Bearer ' + prefs.getString("authToken")!,
+      HttpHeaders.authorizationHeader: 'Bearer $authToken',
     },
   );
-  final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
 
-  return StatsTO.fromJson(responseJson);
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> responseData = jsonDecode(response.body);
+    return StatsTO.fromJson(responseData);
+  } else {
+    throw Exception('Failed to load stats');
+  }
 }
 
 
