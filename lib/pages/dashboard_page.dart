@@ -23,7 +23,7 @@ Future<String?> _getEmail() async {
 
 Future<String?> _getAuthToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('authToken');
+  return prefs.getString('accessToken');
 }
 
 class _DashboardPageState extends State<DashboardPage> {

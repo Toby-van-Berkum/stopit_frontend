@@ -32,7 +32,7 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
 
   Future<String?> _getAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('authToken');
+    return prefs.getString('accessToken');
   }
 
   Future<String?> _getEmail() async {
@@ -189,7 +189,9 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                       if (_formKey.currentState?.validate() ?? false) {
                         DateTime quitDate = _quitDate ?? DateTime(0);
                         var streak = daysBetween(quitDate, currentDay);
-                        createStats(_getAuthToken().toString(), streak, "UNHEALTHY");
+                        print('STREAK BEFORE: $streak');
+                        createStats(_getAuthToken().toString(), streak ?? 0, "UNHEALTHY");
+                        print('STREAK AFTER: $streak');
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
