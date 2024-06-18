@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,8 +31,6 @@ Future<StatsTO> fetchStats() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final email = prefs.getString("email");
   final authToken = prefs.getString("accessToken");
-  debugPrint("3 $email");
-  debugPrint("3 $authToken");
 
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/$email'),
@@ -41,7 +38,6 @@ Future<StatsTO> fetchStats() async {
       HttpHeaders.authorizationHeader: 'Bearer $authToken',
     },
   );
-
   if (response.statusCode == 200) {
     final Map<String, dynamic> responseData = jsonDecode(response.body);
     return StatsTO.fromJson(responseData);
@@ -65,9 +61,6 @@ Future<http.Response> createStats(String authToken, int currentStreak, String he
 }
 
 Future<http.Response> updateStats(String authToken, String email, int currentStreak, String healthLevel) {
-  debugPrint("2 $email");
-  debugPrint("2 $authToken");
-
   return http.patch(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/$email'),
     headers: <String, String>{
