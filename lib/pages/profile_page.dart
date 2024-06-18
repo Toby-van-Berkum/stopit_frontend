@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stopit_frontend/services/stats_service.dart';
 import '../globals.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -11,15 +12,8 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-Future<String?> _getEmail() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('email');
-}
-
 class _ProfilePageState extends State<ProfilePage> {
   final double customPadding = 16.0;
-  final int numberOfAchievements = 6; // dummy data, has to be changed
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
           'Your risk of coronary heart disease is close to that of a non-smoker.',
     };
 
-    List<String> statsText = [
-      "Your longest streak was",
-      "You haven't smoked for",
-    ];
-
     List<String> keysHealthAchievementsExplanations =
         healthAchievementsExplanations.keys.toList();
     List<String> valuesHealthAchievementsExplanations =
@@ -59,18 +48,28 @@ class _ProfilePageState extends State<ProfilePage> {
           });
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-                builder: (context) => pages[currentPageIndex]
-            ),
+            MaterialPageRoute(builder: (context) => pages[currentPageIndex]),
           );
         },
         indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: "Journal"),
-          NavigationDestination(icon: Icon(Icons.person_outlined), selectedIcon: Icon(Icons.person), label: "Profile"),
-          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: "Settings")
+          NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: "Home"),
+          NavigationDestination(
+              icon: Icon(Icons.menu_book_outlined),
+              selectedIcon: Icon(Icons.menu_book),
+              label: "Journal"),
+          NavigationDestination(
+              icon: Icon(Icons.person_outlined),
+              selectedIcon: Icon(Icons.person),
+              label: "Profile"),
+          NavigationDestination(
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: "Settings")
         ],
       ),
       appBar: AppBar(
@@ -87,86 +86,96 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: EdgeInsets.all(customPadding),
           child: Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(
-                    top: customPadding,
-                    right: customPadding,
-                    bottom: customPadding
-                ),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Your achievements',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
+              FutureBuilder<StatsTO>(
+                future: fetchStats(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData) {
+                    return Text('No data available');
+                  } else {
+                    final stats = snapshot.data!;
+                    return Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                              top: customPadding,
+                              right: customPadding,
+                              bottom: customPadding),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Your achievements',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SingleCardStats(
+                              headText: 'Your longest streak was',
+                              statsText: '${stats.longestStreak} days',
+                              widthCard: (ScreenSizes.width(context) / 2) -
+                                  customPadding -
+                                  4,
+                              colorCard: AppColors.primaryColor,
+                            ),
+                            SingleCardStats(
+                              headText: "You haven't smoked for",
+                              statsText: '${stats.currentStreak} days',
+                              widthCard: (ScreenSizes.width(context) / 2) -
+                                  customPadding -
+                                  4,
+                              colorCard: AppColors.green,
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: customPadding, bottom: customPadding * 2),
+                          child: Text('Keep going! It’ll only get easier'),
+                        ),
+                        SingleCardStats(
+                          headText: 'You saved',
+                          statsText:
+                              'Money Saved: ${stats.moneySaved.toStringAsFixed(2)}',
+                          widthCard:
+                              ScreenSizes.width(context) - customPadding - 4,
+                          colorCard: AppColors.blue,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: customPadding * 4,
+                            right: customPadding,
+                          ),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Your health',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ),
+                        ...List.generate(
+                            keysHealthAchievementsExplanations.length, (i) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: customPadding),
+                            child: SingleCardAchievementExplanation(
+                                headText: keysHealthAchievementsExplanations[i],
+                                statsText:
+                                    valuesHealthAchievementsExplanations[i],
+                                widthCard: ScreenSizes.width(context),
+                                achievementCompleted: true),
+                          );
+                        }),
+                      ],
+                    );
+                  }
+                },
               ),
-
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    for (int i = 0; i < statsText.length; i++)
-                      SingleCardAchievement(
-                        headText:
-                        '${statsText[i]}', // text with achievements required
-                        widthCard: ScreenSizes.width(context) / 2 - (customPadding * 2),
-                        colorCard: AppColors.yellow,
-                      ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: customPadding, bottom: customPadding * 2),
-                child: Text('Keep going! It’ll only get easier'),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                    top: customPadding,
-                    right: customPadding,
-                    bottom: customPadding),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'You Saved',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    for (int i = 0; i < numberOfAchievements; i++)
-                      SingleCardAchievement(
-                        headText:
-                            '${50 + (i * 50)}', // number of euros not spend on cigarretes
-                        widthCard: ScreenSizes.width(context) / 4,
-                        colorCard: AppColors.blue,
-                      ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                    top: customPadding * 4,
-                    right: customPadding,
-                ),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Your health',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-              ...List.generate(keysHealthAchievementsExplanations.length, (i) {
-                return Padding(
-                  padding: EdgeInsets.only(top: customPadding),
-                  child: SingleCardAchievementExplanation(
-                      headText: keysHealthAchievementsExplanations[i],
-                      statsText: valuesHealthAchievementsExplanations[i],
-                      widthCard: ScreenSizes.width(context),
-                      achievementCompleted: true),
-                );
-              }),
             ],
           ),
         ),

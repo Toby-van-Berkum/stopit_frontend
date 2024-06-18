@@ -13,30 +13,8 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-Future<String?> _getEmail() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('email');
-}
-
-Future<String?> _getAuthToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('accessToken');
-}
-
 class _DashboardPageState extends State<DashboardPage> {
   final double customPadding = 16.0;
-  //
-  // Future<bool> dateChecker() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   int? lastCheckup = prefs.getInt('lastCheckup');
-  //
-  //   if(DateTime.now().day == lastCheckup){
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
   final DateTime currentDay = DateTime.now();
 
   int daysBetween(DateTime from, DateTime to) {
@@ -103,9 +81,10 @@ class _DashboardPageState extends State<DashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: customPadding, bottom: customPadding * 2),
+                margin: EdgeInsets.only(
+                    top: customPadding, bottom: customPadding * 2),
                 child: Text(
-                  'Hello user,',
+                  'Hello,',
                   textAlign: TextAlign.start,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -117,7 +96,9 @@ class _DashboardPageState extends State<DashboardPage> {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title)),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const CheckInPage(title: AppTitle.title)),
                     );
                   },
                 ),
@@ -126,10 +107,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 margin: EdgeInsets.only(bottom: customPadding * 2),
                 child: Text(
                   '“When you quit smoking, you not only add years to your life '
-                      'but also life to your years”',
+                  'but also life to your years”',
                 ),
               ),
-
               FutureBuilder<StatsTO>(
                 future: fetchStats(),
                 builder: (context, snapshot) {
@@ -148,27 +128,19 @@ class _DashboardPageState extends State<DashboardPage> {
                           padding: EdgeInsets.only(bottom: 10.0),
                           child: SingleCardStats(
                             headText: 'No cigarettes',
-                            statsText: 'Current Streak: ${stats.currentStreak}',
+                            statsText:
+                                'Current Streak: ${stats.currentStreak} days',
                             widthCard: ScreenSizes.width(context),
                             colorCard: AppColors.yellow,
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SingleCardStats(
-                              headText: 'You saved',
-                              statsText: 'Money Saved: ${stats.moneySaved.toStringAsFixed(2)}',
-                              widthCard: (ScreenSizes.width(context) / 2) - customPadding - 4,
-                              colorCard: AppColors.blue,
-                            ),
-                            SingleCardStats(
-                              headText: 'Your health',
-                              statsText: 'Health Level: ${stats.healthLevel}',
-                              widthCard: (ScreenSizes.width(context) / 2) - customPadding - 4,
-                              colorCard: AppColors.green,
-                            ),
-                          ],
+                        SingleCardStats(
+                          headText: 'You saved',
+                          statsText:
+                              'Money Saved: €${stats.moneySaved.toStringAsFixed(2)}',
+                          widthCard:
+                              ScreenSizes.width(context) - customPadding - 4,
+                          colorCard: AppColors.blue,
                         ),
                       ],
                     );
