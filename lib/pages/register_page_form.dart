@@ -23,21 +23,12 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
   final List<bool> _isSelected = [false, true]; // Initial state of toggle buttons
   final DateTime currentDay = DateTime.now();
+  int streak = 0;
 
   int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
-  }
-
-  Future<String?> _getAuthToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('accessToken');
-  }
-
-  Future<String?> _getEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('email');
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -186,12 +177,17 @@ class _RegisterPageFormState extends State<RegisterPageForm> {
                   LargeButton(
                     buttonLabel: 'Sign Up',
                     onPressed: () async {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      final authToken = prefs.getString("accessToken");
+
                       if (_formKey.currentState?.validate() ?? false) {
                         DateTime quitDate = _quitDate ?? DateTime(0);
-                        var streak = daysBetween(quitDate, currentDay);
-                        print('STREAK BEFORE: $streak');
-                        createStats(_getAuthToken().toString(), streak ?? 0, "UNHEALTHY");
-                        print('STREAK AFTER: $streak');
+
+                        if (_quitDate != null) {
+                          streak = daysBetween(quitDate, currentDay);
+                        }
+
+                        createStats(authToken!, streak, "UNHEALTHY");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

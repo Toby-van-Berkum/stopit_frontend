@@ -9,7 +9,7 @@ class StatsTO {
   final double moneySaved;
   final int currentStreak;
   final int longestStreak;
-  final int healthLevel;
+  final String healthLevel;
 
   StatsTO({
     required this.moneySaved,
@@ -30,14 +30,10 @@ class StatsTO {
 
 Future<StatsTO> fetchStats() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? email = prefs.getString("email");
-  String? authToken = prefs.getString("accessToken");
-
-  if (email == null) {
-    throw Exception('Email is null');
-  } else if (authToken == null) {
-    throw Exception('AuthToken is null');
-  }
+  final email = prefs.getString("email");
+  final authToken = prefs.getString("accessToken");
+  debugPrint("3 $email");
+  debugPrint("3 $authToken");
 
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/$email'),

@@ -37,7 +37,7 @@ class CheckupTransferObject {
 
 Future<List<CheckupTransferObject>> fetchCheckup(String authToken, String email) async {
   final response = await http.get(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup/' + email),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup/$email'),
     headers: {
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
@@ -57,23 +57,6 @@ Future<http.Response> createCheckup(String authToken, bool hasSmoked, String com
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },
     body: jsonEncode(<String, String>{
-      'hasSmoked': hasSmoked.toString(),
-      'comment': comment,
-      'difficultyScale': difficultyScale,
-      'date': date.toIso8601String()
-    }),
-  );
-}
-
-Future<http.Response> updateCheckup(String authToken, int id, bool hasSmoked, String comment, String difficultyScale, DateTime date) {
-  return http.patch(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/user/users/checkup'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
-    },
-    body: jsonEncode(<String, String>{
-      'id': id.toString(),
       'hasSmoked': hasSmoked.toString(),
       'comment': comment,
       'difficultyScale': difficultyScale,
