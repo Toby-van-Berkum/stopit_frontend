@@ -17,12 +17,11 @@ class _JournalPageState extends State<JournalPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  DateTime _firstDay = DateTime.now().subtract(Duration(days: 30));
+  DateTime _firstDay = DateTime.now(); //Default value for now
   List<CheckupTransferObject> _checkupList = []; // List to store CheckupModel objects
   String _selectedComment = ''; // Variable to store the selected comment
   bool _hasSmokedToday = false;
   String _dayDifficulty = '';
-  Map<String, dynamic>? _userData;
 
   @override
   void initState() {
@@ -36,12 +35,10 @@ class _JournalPageState extends State<JournalPage> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? accessToken = prefs.getString('accessToken');
-      print(accessToken);
       if (accessToken != null) {
         Map<String, dynamic> data = await getUserData(accessToken);
         setState(() {
-          _userData = data;
-          print(_userData);
+          _firstDay = DateTime.parse(data['accountCreated']);
         });
       }
     } catch (e) {

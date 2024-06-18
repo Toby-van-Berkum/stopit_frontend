@@ -136,7 +136,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return CircularProgressIndicator();
                   } else if (snapshot.hasError) {
-                    print(snapshot);
+                    // print(snapshot);
                     return Text('Error: ${snapshot.error}');
                   } else if (!snapshot.hasData) {
                     return Text('No data available');

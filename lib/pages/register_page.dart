@@ -21,8 +21,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _register() async {
-    print(_firstNameController.text);
-    print(_lastNameController.text);
     if (_formKey.currentState?.validate() ?? false) {
       try {
         AuthTokens tokens = await registerService(

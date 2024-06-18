@@ -41,7 +41,6 @@ class _CheckInPageState extends State<CheckInPage> {
   bool vertical = false;
   final _formKey = GlobalKey<FormState>();
   final _commentController = TextEditingController();
-
   String? _comment = "";
   bool? _hasSmokedValue = false;
   int? _difficultyValue = 2; // Default to "Medium"
@@ -151,8 +150,6 @@ class _CheckInPageState extends State<CheckInPage> {
                     await prefs.setInt('lastCheckup', _currentDate.day);
                     String? authToken = prefs.getString('accessToken');
                     String? email = prefs.getString('email');
-                    debugPrint(email);
-                    debugPrint(authToken);
 
                     createCheckup(
                         authToken!,
