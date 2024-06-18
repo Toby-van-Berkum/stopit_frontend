@@ -13,6 +13,14 @@ class JournalPage extends StatefulWidget {
   _JournalPageState createState() => _JournalPageState();
 }
 
+const List<Widget> difficulty = <Widget>[
+  Text("Very Hard"),
+  Text("Hard"),
+  Text("Medium"),
+  Text("Easy"),
+  Text("Very Easy")
+];
+
 class _JournalPageState extends State<JournalPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
@@ -217,18 +225,27 @@ class _JournalPageState extends State<JournalPage> {
               ),
             ),
             SizedBox(height: 20),
-            Row(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: DecoratedBox(decoration: BoxDecoration(
-                    color: _hasSmokedToday ? Colors.red : Colors.green),
-                  )),
-                Text(_dayDifficulty)
+                Row(
+                  children: [
+                    Text("Did you smoke?  ", style: AppStyles.labelStyle(),),
+                    Text(_hasSmokedToday ? "Yes" : "No", style: TextStyle(color: _hasSmokedToday ? Colors.red : Colors.green, fontWeight: FontWeight.bold, fontSize: 20)),
+                  ],
+                ),
+                CustomSizedBox.small(),
+                Row(children: [
+                  Text("How you felt: ", style: AppStyles.labelStyle(),),
+                  Text(_dayDifficulty.toLowerCase(), style: AppStyles.labelStyle(),)
+                ],),
+                CustomSizedBox.small(),
+                Text("Your comment:", style: AppStyles.labelStyle(),),
+                Text(_selectedComment),
+
               ],
             ),
-            Text(_selectedComment),
           ],
         ),
       ),
