@@ -168,7 +168,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           children: [
                             SingleCardStats(
                               headText: 'You saved',
-                              statsText: 'Money Saved: \$${stats.moneySaved.toStringAsFixed(2)}',
+                              statsText: 'Money Saved: ${stats.moneySaved.toStringAsFixed(2)}',
                               widthCard: (ScreenSizes.width(context) / 2) - customPadding - 4,
                               colorCard: AppColors.blue,
                             ),
