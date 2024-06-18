@@ -1,7 +1,6 @@
 // lib/colors.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stopit_frontend/pages/checkin_page.dart';
 import 'package:stopit_frontend/pages/dashboard_page.dart';
 import 'package:stopit_frontend/pages/journal_page.dart';
 import 'package:stopit_frontend/pages/profile_page.dart';

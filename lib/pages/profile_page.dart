@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stopit_frontend/pages/settings_page.dart';
 import '../globals.dart';
 
 class ProfilePage extends StatefulWidget {

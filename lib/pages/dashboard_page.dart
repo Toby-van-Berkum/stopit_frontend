@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/pages/checkin_page.dart';
-import 'package:stopit_frontend/pages/profile_page.dart';
-import 'package:stopit_frontend/pages/register_page.dart';
 import '../globals.dart';
 import 'package:stopit_frontend/services/stats_service.dart';
-import 'package:stopit_frontend/services/auth_service.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.title});

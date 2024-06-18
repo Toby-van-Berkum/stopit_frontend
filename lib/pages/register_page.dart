@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopit_frontend/globals.dart';
-import 'package:stopit_frontend/pages/login_page.dart';
 import 'package:stopit_frontend/pages/register_page_form.dart';
 import 'package:stopit_frontend/services/auth_service.dart';
 
