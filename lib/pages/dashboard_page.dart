@@ -4,6 +4,8 @@ import 'package:stopit_frontend/pages/checkin_page.dart';
 import '../globals.dart';
 import 'package:stopit_frontend/services/stats_service.dart';
 
+import '../services/auth_service.dart';
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.title});
 
@@ -13,8 +15,37 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
+Future<String?> _getEmail() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('email');
+}
+
+Future<String?> _getAuthToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('accessToken');
+}
+
 class _DashboardPageState extends State<DashboardPage> {
   final double customPadding = 16.0;
+  String? _userName;
+
+  Future<void> _getUserData() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? accessToken = prefs.getString('accessToken');
+      if (accessToken != null) {
+        Map<String, dynamic> data = await getUserData(accessToken);
+        setState(() {
+          _userName = data['firstname'];
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to get user data: $e')),
+      );
+    }
+  }
+
   final DateTime currentDay = DateTime.now();
 
   int daysBetween(DateTime from, DateTime to) {
@@ -27,6 +58,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     currentPageIndex = 0;
     super.initState();
+    _getUserData();
   }
 
   @override
@@ -84,7 +116,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 margin: EdgeInsets.only(
                     top: customPadding, bottom: customPadding * 2),
                 child: Text(
-                  'Hello,',
+                  _userName == null ? 'Hello user,' : 'Hello ${_userName}',
                   textAlign: TextAlign.start,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -114,7 +146,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 future: fetchStats(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return
+                      Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     // print(snapshot);
                     return Text('Error: ${snapshot.error}');
