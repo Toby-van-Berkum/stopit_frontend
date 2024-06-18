@@ -34,10 +34,8 @@ class _JournalDayPageState extends State<JournalDayPage> {
   // @override
   // void initState() {
   //   super.initState();
-  //   futureCheckup = fetchCheckupModel( );
+  //   futureCheckup = fetchCheckupModel();
   // }
-
-  //TODO: make data readable for user
 
   @override
   Widget build(BuildContext context) {

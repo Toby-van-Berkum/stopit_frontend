@@ -37,7 +37,7 @@ class CheckupTransferObject {
 
 Future<List<CheckupTransferObject>> fetchCheckup(String authToken, String email) async {
   final response = await http.get(
-    Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup/' + email),
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/checkup/$email'),
     headers: {
       HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
     },

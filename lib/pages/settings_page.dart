@@ -20,7 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<String?> _getAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('authToken');
+    return prefs.getString('accessToken');
   }
 
   @override
