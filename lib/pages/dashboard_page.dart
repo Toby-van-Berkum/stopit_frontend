@@ -144,7 +144,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 future: fetchStats(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return
+                      Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     // print(snapshot);
                     return Text('Error: ${snapshot.error}');
