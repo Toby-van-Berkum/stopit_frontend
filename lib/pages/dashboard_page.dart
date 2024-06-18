@@ -64,18 +64,30 @@ class _DashboardPageState extends State<DashboardPage> {
           });
           Navigator.pushReplacement(
             context,
-              MaterialPageRoute(
-                  builder: (context) => pages[currentPageIndex]
-              ),
+            MaterialPageRoute(
+              builder: (context) => pages[currentPageIndex],
+            ),
           );
         },
         indicatorColor: AppColors.primaryColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: "Journal"),
-          NavigationDestination(icon: Icon(Icons.person_outlined), selectedIcon: Icon(Icons.person), label: "Profile"),
-          NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: "Settings")
+          NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: "Home"),
+          NavigationDestination(
+              icon: Icon(Icons.menu_book_outlined),
+              selectedIcon: Icon(Icons.menu_book),
+              label: "Journal"),
+          NavigationDestination(
+              icon: Icon(Icons.person_outlined),
+              selectedIcon: Icon(Icons.person),
+              label: "Profile"),
+          NavigationDestination(
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: "Settings")
         ],
       ),
       appBar: AppBar(
@@ -91,59 +103,85 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Container(
           margin: EdgeInsets.all(customPadding),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(
-                    top: customPadding, bottom: customPadding * 2),
-                child: Text('Hello user,',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                margin: EdgeInsets.only(top: customPadding, bottom: customPadding * 2),
+                child: Text(
+                  'Hello user,',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: customPadding * 3),
-                child: LargeButton(buttonLabel: "Check In", onPressed: () /** async **/ {
-                  // if(await dateChecker()) {
-                  //   return null;
-                  // }
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title,)));
-                }),
+                child: LargeButton(
+                  buttonLabel: "Check In",
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CheckInPage(title: AppTitle.title)),
+                    );
+                  },
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: customPadding * 2),
-                child: Text('“When you quit smoking, you not only add years to your life '
-                    'but also life to your years”'),
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: SingleCardStats(
-                  headText: 'No cigarettes',
-                  statsText: '$fetchStats(_getAuthToken(), _getEmail())',
-                  widthCard: (ScreenSizes.width(context)),
-                  colorCard: AppColors.yellow,
+                child: Text(
+                  '“When you quit smoking, you not only add years to your life '
+                      'but also life to your years”',
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SingleCardStats(
-                      headText: 'You saved',
-                      statsText: '${fetchStats().toString()}',
-                      widthCard:
-                          ((ScreenSizes.width(context) / 2) - customPadding - 4),
-                      colorCard: AppColors.blue),
-                  SingleCardStats(
-                      headText: 'Your health',
-                      statsText: 'insert text',
-                      widthCard:
-                          ((ScreenSizes.width(context) / 2) - customPadding - 4),
-                      colorCard: AppColors.green),
-                ],
+
+              FutureBuilder<StatsTO>(
+                future: fetchStats(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    print(snapshot);
+                    return Text('Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData) {
+                    return Text('No data available');
+                  } else {
+                    final stats = snapshot.data!;
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: SingleCardStats(
+                            headText: 'No cigarettes',
+                            statsText: 'Current Streak: ${stats.currentStreak}',
+                            widthCard: ScreenSizes.width(context),
+                            colorCard: AppColors.yellow,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SingleCardStats(
+                              headText: 'You saved',
+                              statsText: 'Money Saved: \$${stats.moneySaved.toStringAsFixed(2)}',
+                              widthCard: (ScreenSizes.width(context) / 2) - customPadding - 4,
+                              colorCard: AppColors.blue,
+                            ),
+                            SingleCardStats(
+                              headText: 'Your health',
+                              statsText: 'Health Level: ${stats.healthLevel}',
+                              widthCard: (ScreenSizes.width(context) / 2) - customPadding - 4,
+                              colorCard: AppColors.green,
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                },
               ),
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }

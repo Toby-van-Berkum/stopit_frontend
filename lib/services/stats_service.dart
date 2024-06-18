@@ -20,7 +20,7 @@ class StatsTO {
 
   factory StatsTO.fromJson(Map<String, dynamic> json) {
     return StatsTO(
-      moneySaved: json['moneySaved'] is double ? json['moneySaved'] : double.parse(json['moneySaved'].toString()),
+      moneySaved: json['moneySaved'].toDouble(),
       currentStreak: json['currentStreak'],
       longestStreak: json['longestStreak'],
       healthLevel: json['healthLevel'],
@@ -30,10 +30,14 @@ class StatsTO {
 
 Future<StatsTO> fetchStats() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final email = prefs.getString("email");
-  final authToken = prefs.getString("accessToken");
-  debugPrint("3 $email");
-  debugPrint("3 $authToken");
+  String? email = prefs.getString("email");
+  String? authToken = prefs.getString("accessToken");
+
+  if (email == null) {
+    throw Exception('Email is null');
+  } else if (authToken == null) {
+    throw Exception('AuthToken is null');
+  }
 
   final response = await http.get(
     Uri.parse('https://stopit.onrender.com/stop-it/v1/stats/$email'),
@@ -43,10 +47,10 @@ Future<StatsTO> fetchStats() async {
   );
 
   if (response.statusCode == 200) {
-    final responseJson = jsonDecode(response.body) as Map<String, dynamic>;
-    return StatsTO.fromJson(responseJson);
+    final Map<String, dynamic> responseData = jsonDecode(response.body);
+    return StatsTO.fromJson(responseData);
   } else {
-    throw Exception('Failed to load stats: ${response.statusCode}');
+    throw Exception('Failed to load stats');
   }
 }
 
