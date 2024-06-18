@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stopit_frontend/services/auth_service.dart';
 import 'package:stopit_frontend/services/checkup_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:stopit_frontend/globals.dart';
@@ -21,12 +22,33 @@ class _JournalPageState extends State<JournalPage> {
   String _selectedComment = ''; // Variable to store the selected comment
   bool _hasSmokedToday = false;
   String _dayDifficulty = '';
+  Map<String, dynamic>? _userData;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
     _fetchCheckup(); // Fetch checkup data when initializing the state
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? accessToken = prefs.getString('accessToken');
+      print(accessToken);
+      if (accessToken != null) {
+        Map<String, dynamic> data = await getUserData(accessToken);
+        setState(() {
+          _userData = data;
+          print(_userData);
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to get user data: $e')),
+      );
+    }
   }
 
   Future<void> _fetchCheckup() async {

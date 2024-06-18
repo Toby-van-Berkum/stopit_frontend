@@ -79,3 +79,19 @@ Future<AuthTokens> registerService(String firstName, String lastName, String ema
     throw Exception('Failed to register.');
   }
 }
+
+Future<Map<String, dynamic>> getUserData(String authToken) async {
+
+  final response = await http.get(
+    Uri.parse('https://stopit.onrender.com/stop-it/v1/user/users/owned'),
+    headers: {
+      HttpHeaders.authorizationHeader: 'Bearer ' + authToken,
+    },
+  );
+
+  if (response.statusCode == OK) {
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  } else {
+    throw Exception('Failed to load user data.');
+  }
+}
