@@ -4,6 +4,8 @@ import 'package:stopit_frontend/pages/checkin_page.dart';
 import '../globals.dart';
 import 'package:stopit_frontend/services/stats_service.dart';
 
+import '../services/auth_service.dart';
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.title});
 
@@ -25,17 +27,24 @@ Future<String?> _getAuthToken() async {
 
 class _DashboardPageState extends State<DashboardPage> {
   final double customPadding = 16.0;
-  //
-  // Future<bool> dateChecker() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   int? lastCheckup = prefs.getInt('lastCheckup');
-  //
-  //   if(DateTime.now().day == lastCheckup){
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
+  String? _userName;
+
+  Future<void> _getUserData() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? accessToken = prefs.getString('accessToken');
+      if (accessToken != null) {
+        Map<String, dynamic> data = await getUserData(accessToken);
+        setState(() {
+          _userName = data['firstname'];
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to get user data: $e')),
+      );
+    }
+  }
 
   final DateTime currentDay = DateTime.now();
 
@@ -49,6 +58,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     currentPageIndex = 0;
     super.initState();
+    _getUserData();
   }
 
   @override
@@ -105,7 +115,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Container(
                 margin: EdgeInsets.only(top: customPadding, bottom: customPadding * 2),
                 child: Text(
-                  'Hello user,',
+                  _userName == null ? 'Hello user,' : 'Hello ${_userName}',
                   textAlign: TextAlign.start,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
